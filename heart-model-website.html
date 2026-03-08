@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ModAnatomy — Educational Heart Model</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #C0392B;
+      --red-deep: #922B21;
+      --red-light: #E74C3C;
+      --cream: #FAF6F0;
+      --warm-white: #FDF9F4;
+      --dark: #1A0A08;
+      --mid: #5C2D27;
+      --text: #2C1810;
+      --muted: #8B6058;
+      --accent: #E8C547;
+      --border: rgba(192,57,43,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,246,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: -0.02em;
+      cursor: pointer;
+    }
+    .nav-logo span { color: var(--dark); font-weight: 400; font-style: italic; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--red); }
+    .nav-cta {
+      background: var(--red);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      opacity: 1 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-deep) !important; }
+
+    /* ─── PAGES ─── */
+    .page { display: none; min-height: 100vh; padding-top: 68px; }
+    .page.active { display: block; }
+
+    /* ─── HOME ─── */
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px; height: 2px;
+      background: var(--red);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      margin-bottom: 28px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--red);
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 460px;
+      margin-bottom: 44px;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--red-deep); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--text);
+      padding: 14px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+    .hero-right {
+      position: relative;
+      background: var(--red-deep);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(231,76,60,0.4) 0%, transparent 70%);
+    }
+    .heart-diagram {
+      position: relative; z-index: 2;
+      width: 320px; height: 320px;
+    }
+    .pulse-ring {
+      position: absolute;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      animation: pulseRing 2.5s ease-in-out infinite;
+    }
+    .pulse-ring:nth-child(1) { inset: 20px; animation-delay: 0s; }
+    .pulse-ring:nth-child(2) { inset: 0; animation-delay: 0.4s; }
+    .pulse-ring:nth-child(3) { inset: -20px; animation-delay: 0.8s; }
+    @keyframes pulseRing {
+      0%, 100% { opacity: 0.2; transform: scale(0.96); }
+      50% { opacity: 0.6; transform: scale(1); }
+    }
+    .heart-svg { width: 100%; height: 100%; }
+
+    .hero-stats {
+      display: flex; gap: 40px;
+      padding: 40px 64px;
+      background: var(--dark);
+      color: white;
+    }
+    .stat { flex: 1; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* Mission strip */
+    .mission-strip {
+      padding: 96px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+    .section-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+    .pillar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .pillar-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .pillar-icon {
+      width: 44px; height: 44px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .pillar-text h4 {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      color: var(--dark);
+    }
+    .pillar-text p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── ABOUT ─── */
+    .page-header {
+      background: var(--dark);
+      color: white;
+      padding: 80px 64px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      right: -100px; top: -100px;
+      width: 400px; height: 400px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      right: 50px; top: 50px;
+      width: 200px; height: 200px;
+      border: 1px solid rgba(192,57,43,0.3);
+      border-radius: 50%;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      position: relative; z-index: 1;
+    }
+    .page-header h1 em { font-style: italic; color: var(--accent); }
+    .page-header p {
+      margin-top: 20px;
+      font-size: 1.05rem;
+      opacity: 0.6;
+      max-width: 560px;
+      line-height: 1.7;
+      position: relative; z-index: 1;
+    }
+
+    .content-section {
+      padding: 80px 64px;
+    }
+    .content-section.alt { background: var(--warm-white); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .two-col.flip { direction: rtl; }
+    .two-col.flip > * { direction: ltr; }
+
+    .story-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .story-text p {
+      font-size: 0.975rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .visual-card {
+      background: var(--red-deep);
+      border-radius: 12px;
+      padding: 48px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .visual-card::before {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .visual-card-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 24px;
+    }
+    .visual-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .visual-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      opacity: 0.7;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+    .value-item {
+      background: var(--cream);
+      padding: 40px 32px;
+    }
+    .value-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--red);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .value-item h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .value-item p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ─── HEART MODEL ─── */
+    .model-hero {
+      background: var(--dark);
+      padding: 80px 64px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .model-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(192,57,43,0.2) 0%, transparent 60%);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .spec-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 28px;
+    }
+    .spec-card h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 12px;
+    }
+    .spec-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .how-it-works {
+      padding: 96px 64px;
+    }
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 56px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--red);
+      opacity: 0.3;
+      line-height: 1;
+    }
+    .step-content h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .step-content p {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .materials-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+    }
+    .materials-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .materials-table td {
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .materials-table tr:hover td { background: rgba(192,57,43,0.04); }
+
+    .cost-badge {
+      background: var(--red);
+      color: white;
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .roadmap {
+      padding: 96px 64px;
+      background: var(--warm-white);
+    }
+    .roadmap-items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .roadmap-item {
+      background: var(--cream);
+      padding: 40px 32px;
+    }
+    .roadmap-phase {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .roadmap-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .roadmap-item ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .roadmap-item li {
+      font-size: 0.875rem;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .roadmap-item li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--red);
+      font-size: 0.75rem;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 68px - 240px);
+    }
+    .contact-left {
+      background: var(--dark);
+      color: white;
+      padding: 80px 64px;
+    }
+    .contact-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--accent); }
+    .contact-left p {
+      font-size: 0.975rem;
+      line-height: 1.8;
+      opacity: 0.6;
+      margin-bottom: 48px;
+    }
+    .contact-info-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+    .contact-info-icon {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-info-text span {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 4px;
+    }
+    .contact-info-text p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin: 0;
+    }
+
+    .contact-right {
+      padding: 80px 64px;
+      background: var(--warm-white);
+    }
+    .contact-right h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 32px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--red);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-success {
+      display: none;
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 16px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-top: 16px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 48px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--red);
+    }
+    .footer-logo span { color: rgba(255,255,255,0.4); font-weight: 400; font-style: italic; }
+    .footer-tagline {
+      font-size: 0.8rem;
+      opacity: 0.35;
+      margin-top: 6px;
+    }
+    .footer-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .footer-links a:hover { color: white; }
+    .footer-copy {
+      font-size: 0.75rem;
+      opacity: 0.25;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeUp 0.6s ease both;
+    }
+    .fade-up-1 { animation-delay: 0.1s; }
+    .fade-up-2 { animation-delay: 0.2s; }
+    .fade-up-3 { animation-delay: 0.3s; }
+    .fade-up-4 { animation-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 280px; }
+      .hero-left { padding: 48px 24px; }
+      .hero-stats { padding: 32px 24px; flex-wrap: wrap; gap: 24px; }
+      .mission-strip, .two-col, .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .content-section, .how-it-works, .roadmap { padding: 56px 24px; }
+      .roadmap-items { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: 1fr; }
+      .roadmap-items { grid-template-columns: 1fr; }
+      .page-header, .contact-left, .contact-right, .model-hero { padding: 48px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .mission-strip { padding: 56px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Mod<span>Anatomy</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('about')">About</a></li>
+    <li><a href="#" onclick="showPage('model')">The Model</a></li>
+    <li><a href="#" onclick="showPage('contact')" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div class="hero-left fade-up">
+      <div class="hero-eyebrow">Educational Nonprofit</div>
+      <h1 class="hero-title">Feel the<br/><em>Heartbeat</em><br/>of Science</h1>
+      <p class="hero-desc">A hands-on, low-cost mechanical heart model that lets students physically pump, feel, and see how the human heart works — designed for classrooms that need it most.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('model')">Explore the Model</button>
+        <button class="btn-outline" onclick="showPage('about')">Our Mission</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="heart-diagram">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <svg class="heart-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Simplified anatomical heart -->
+          <path d="M100 160 C60 130 20 100 20 65 C20 40 40 25 65 30 C80 33 95 45 100 55 C105 45 120 33 135 30 C160 25 180 40 180 65 C180 100 140 130 100 160Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <!-- Aorta suggestion -->
+          <path d="M100 55 L100 25 C100 20 105 15 112 15 C120 15 125 20 125 28" stroke="rgba(255,255,255,0.5)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <!-- Pulmonary -->
+          <path d="M90 50 L75 30 C70 22 62 20 55 25" stroke="rgba(255,255,255,0.35)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Chambers divider -->
+          <line x1="100" y1="55" x2="100" y2="145" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
+          <!-- Water flow dots -->
+          <circle cx="80" cy="90" r="4" fill="rgba(232,197,71,0.7)">
+            <animate attributeName="cy" values="70;110;70" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="120" cy="110" r="4" fill="rgba(232,197,71,0.5)">
+            <animate attributeName="cy" values="110;70;110" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <text x="100" y="185" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="DM Sans, sans-serif" letter-spacing="3">PROTOTYPE V1</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat fade-up fade-up-1">
+      <div class="stat-num">~$30</div>
+      <div class="stat-label">Cost per unit</div>
+    </div>
+    <div class="stat fade-up fade-up-2">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Pump cycles tested</div>
+    </div>
+    <div class="stat fade-up fade-up-3">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">3D-printable parts</div>
+    </div>
+    <div class="stat fade-up fade-up-4">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Heart chambers simulated</div>
+    </div>
+  </div>
+
+  <div class="mission-strip">
+    <div>
+      <div class="section-eyebrow">Why it matters</div>
+      <h2 class="section-title">Science is best learned <em>by doing</em></h2>
+      <p class="section-body">Under-resourced schools rarely have access to expensive lab equipment or cadaver specimens. ModAnatomy fills that gap with a $30, fully 3D-printable model that puts real physics in students' hands — letting them feel the difference between systole and diastole with every pump.</p>
+    </div>
+    <ul class="pillar-list">
+      <li class="pillar-item">
+        <div class="pillar-icon">🤲</div>
+        <div class="pillar-text">
+          <h4>Kinesthetic Learning</h4>
+          <p>Students physically pump pistons to simulate each cardiac phase, creating genuine muscle memory of how the heart works.</p>
+        </div>
+      </li>
+      <li class="pillar-item">
+        <div class="pillar-icon">👁️</div>
+        <div class="pillar-text">
+          <h4>Visual Feedback</h4>
+          <p>Colored water flows through transparent tubing — students see directional flow, valves in action, and chamber fills in real time.</p>
+        </div>
+      </li>
+      <li class="pillar-item">
+        <div class="pillar-icon">🔧</div>
+        <div class="pillar-text">
+          <h4>Mechanically Transparent</h4>
+          <p>No motors, no black boxes. Students can see exactly how every part connects — and understand why.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ══════════════ ABOUT PAGE ══════════════ -->
+<div class="page" id="page-about">
+
+  <div class="page-header">
+    <div class="section-eyebrow" style="color: var(--accent);">Our Story</div>
+    <h1>Science education<br/>should be <em>accessible</em><br/>to everyone.</h1>
+    <p>We're building open-source, hands-on science tools for the classrooms that need them most — starting with the human heart.</p>
+  </div>
+
+  <div class="content-section">
+    <div class="two-col">
+      <div class="story-text">
+        <div class="section-eyebrow">The Problem</div>
+        <h2>A $30 solution to a real gap</h2>
+        <p>Commercial heart models cost hundreds of dollars. Cadaver labs are inaccessible to most public schools. Biology teachers are left with flat diagrams and abstract descriptions — and students are left without the visceral experience of understanding how life works.</p>
+        <p>ModAnatomy was born from a simple question: what if a student could actually feel the vacuum of diastole and the pressure of systole with their own hands, for the cost of a few school lunches?</p>
+      </div>
+      <div class="visual-card">
+        <div class="visual-card-label">Our Approach</div>
+        <h3>Open-source. Low-cost. Built for the classroom.</h3>
+        <p>Every component is 3D-printable on a consumer printer. Assembly uses craft foam, silicone caulk, and aquarium tubing. Files are freely available. Teachers can build it. Students can build it. Anyone can replicate it.</p>
+      </div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-num">01</div>
+        <h4>Accessibility First</h4>
+        <p>Designed specifically for under-resourced middle and high schools. Every design decision is made with cost and replicability in mind.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-num">02</div>
+        <h4>Open Everything</h4>
+        <p>CAD files, build guides, and assembly documentation will be freely available. Science education shouldn't sit behind a paywall.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-num">03</div>
+        <h4>Start with the Heart</h4>
+        <p>The heart is our first model — but our vision spans a full organ system: lungs, kidneys, digestive tract, and beyond.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section alt">
+    <div class="two-col flip">
+      <div class="story-text">
+        <div class="section-eyebrow">The Vision</div>
+        <h2>One model. A whole body.</h2>
+        <p>ModAnatomy isn't just a heart model — it's the first piece of a modular organ system. We envision a future where any science classroom can build and interact with mechanical analogs of every major body system.</p>
+        <p>Bellows for lungs. Filtration columns for kidneys. Peristaltic tubes for digestion. Comparative anatomy kits — fish hearts, amphibian hearts, mammal hearts — all at the same $30 price point.</p>
+      </div>
+      <div class="visual-card" style="background: var(--dark);">
+        <div class="visual-card-label">Roadmap</div>
+        <h3>From one heart to a full system</h3>
+        <p style="margin-bottom: 20px;">V1 is proven. V2 brings anatomical accuracy. Future models expand into comparative biology and multi-organ systems.</p>
+        <p>🫀 Heart — <strong style="color:var(--accent)">V1 Complete</strong><br/>
+        🫁 Lungs — Planned<br/>
+        🫘 Kidneys — Planned<br/>
+        🧬 Comparative Anatomy — Vision</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════ MODEL PAGE ══════════════ -->
+<div class="page" id="page-model">
+
+  <div class="model-hero">
+    <div style="position: relative; z-index: 1; max-width: 700px;">
+      <div class="section-eyebrow" style="color: var(--accent);">Prototype V1 — Functional</div>
+      <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 20px; line-height: 1.05;">The Piston Heart Model</h1>
+      <p style="font-size: 1rem; line-height: 1.8; opacity: 0.6; max-width: 580px;">A manually-actuated mechanical model that simulates the full cardiac cycle using square pistons, foam-silicone gaskets, and one-way check valves. Fully 3D-printable. Tested for 500+ pump cycles.</p>
+    </div>
+    <div class="specs-grid" style="position: relative; z-index: 1;">
+      <div class="spec-card">
+        <h4>Chambers</h4>
+        <p>6 total — 4 heart chambers (left/right atria & ventricles) + 2 reservoir boxes for fluid circulation</p>
+      </div>
+      <div class="spec-card">
+        <h4>Piston Design</h4>
+        <p>20mm × 20mm square cross-section with foam-silicone composite gaskets for watertight vacuum seal</p>
+      </div>
+      <div class="spec-card">
+        <h4>Valves</h4>
+        <p>Aquarium-style external check valves ensure strict unidirectional flow, mimicking the heart's own valve function</p>
+      </div>
+      <div class="spec-card">
+        <h4>Visibility</h4>
+        <p>Transparent 6mm ID silicone tubing with colored water + glycerin for vivid, easily tracked flow visualization</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-it-works">
+    <div class="section-eyebrow">Mechanics</div>
+    <h2 class="section-title">How it works</h2>
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Pull Stroke — Diastole</h3>
+          <p>Students pull the lever arm upward, retracting the piston and creating a vacuum inside the chamber. This suction draws colored water through the inlet check valve — exactly mimicking how the heart's chambers fill with blood during diastole.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Push Stroke — Systole</h3>
+          <p>Pressing the lever arm down drives the piston forward, building pressure inside the chamber. The outlet check valve opens and water is ejected into the tubing — simulating the heart's powerful systolic contraction.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Valve Action — Unidirectional Flow</h3>
+          <p>One-way check valves prevent backflow in both directions, exactly as the heart's mitral, aortic, tricuspid, and pulmonary valves do. Students can observe that the colored water only ever moves in one direction through the system.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>The Key Breakthrough — Square Piston Sealing</h3>
+          <p>Creating a vacuum with a square piston is harder than it sounds. Our solution: craft foam cut to the piston face, attached at edges only (center must flex), coated with 100% silicone caulk and cured for 6–24 hours. The result is a compressible, waterproof gasket that seals under negative pressure without requiring circular geometry or O-rings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section alt">
+    <div class="section-eyebrow">Bill of Materials</div>
+    <h2 class="section-title">What goes into each unit</h2>
+    <table class="materials-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Material / Spec</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Structural chambers & pistons</td><td>PLA+ filament</td><td>Ender 3 printer, 0.2mm layer height, 30–50% infill</td></tr>
+        <tr><td>Snap-fit hinges (lever arms)</td><td>PLA+ filament</td><td>Scaled to 97–99% for proper snap fit</td></tr>
+        <tr><td>Gasket base layer</td><td>Craft foam sheets (2mm)</td><td>Cut to piston face, edges glued only</td></tr>
+        <tr><td>Waterproofing & gasket coating</td><td>100% silicone caulk</td><td>Cured 6–24 hours</td></tr>
+        <tr><td>Flow tubing</td><td>Silicone, 6mm ID, transparent</td><td>Allows students to see colored water flow</td></tr>
+        <tr><td>Valves</td><td>Aquarium-style check valves</td><td>Ensures unidirectional flow</td></tr>
+        <tr><td>Flow medium</td><td>Water + glycerin + food coloring</td><td>Glycerin increases viscosity for better visualization</td></tr>
+        <tr><td>Lubrication</td><td>Petroleum jelly</td><td>Applied to piston surfaces for smooth operation</td></tr>
+        <tr><td>Assembly</td><td>Hot glue</td><td>Used for non-structural joins</td></tr>
+        <tr><td style="font-weight:600;">Total Cost</td><td colspan="2"><span class="cost-badge">~$30 per unit</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="roadmap">
+    <div class="section-eyebrow">What's Next</div>
+    <h2 class="section-title">Development roadmap</h2>
+    <div class="roadmap-items">
+      <div class="roadmap-item">
+        <div class="roadmap-phase">✅ Current — V1</div>
+        <h3>Functional Prototype</h3>
+        <ul>
+          <li>Square piston design validated</li>
+          <li>Foam-silicone sealing solved</li>
+          <li>500+ pump cycle test passed</li>
+          <li>~$30 cost target met</li>
+          <li>All parts 3D-printable on Ender 3</li>
+        </ul>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">🔜 Next — V2</div>
+        <h3>Anatomical Accuracy</h3>
+        <ul>
+          <li>Redesign chambers to heart-shaped geometry</li>
+          <li>Full integrated 4-chamber assembly</li>
+          <li>Improved visual presentation</li>
+          <li>Open-source documentation & build guides</li>
+        </ul>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">🌱 Vision</div>
+        <h3>Organ System Expansion</h3>
+        <ul>
+          <li>Lungs — bellows-based model</li>
+          <li>Kidneys — filtration analog</li>
+          <li>Digestive system — peristaltic tubes</li>
+          <li>Comparative anatomy: fish, frog, mammal hearts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════ CONTACT PAGE ══════════════ -->
+<div class="page" id="page-contact">
+
+  <div class="contact-layout">
+    <div class="contact-left">
+      <div class="section-eyebrow" style="color: var(--accent);">Reach Out</div>
+      <h2>Let's bring this to<br/><em>your classroom.</em></h2>
+      <p>Whether you're a teacher, school administrator, funder, maker, or just curious — we'd love to hear from you. ModAnatomy is early-stage and actively looking for partners, pilot schools, and collaborators.</p>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">🏫</div>
+        <div class="contact-info-text">
+          <span>For Educators</span>
+          <p>Interested in piloting the model in your classroom? We want to work with you.</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">💡</div>
+        <div class="contact-info-text">
+          <span>For Makers & Builders</span>
+          <p>Have ideas for V2 or want to contribute to the open-source design? Let's collaborate.</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">🤝</div>
+        <div class="contact-info-text">
+          <span>For Funders & Partners</span>
+          <p>We're exploring grants, partnerships, and crowdfunding. Early conversations welcome.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <h3>Send us a message</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane" id="fname"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" id="lname"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="jane@school.org" id="email"/>
+      </div>
+      <div class="form-group">
+        <label>I am a...</label>
+        <select id="role">
+          <option value="">Select your role</option>
+          <option>Teacher / Educator</option>
+          <option>School Administrator</option>
+          <option>Maker / Engineer</option>
+          <option>Funder / Grant Maker</option>
+          <option>Student</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us about your school, your ideas, or how you'd like to get involved..." id="message"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;" onclick="submitForm()">Send Message</button>
+      <div class="form-success" id="form-success">
+        ✅ Thanks for reaching out! We'll be in touch soon.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Mod<span>Anatomy</span></div>
+    <div class="footer-tagline">Hands-on anatomy education for every classroom.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('about')">About</a></li>
+    <li><a onclick="showPage('model')">The Model</a></li>
+    <li><a onclick="showPage('contact')">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ModAnatomy. All rights reserved.</div>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!fname || !email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+    document.getElementById('form-success').style.display = 'block';
+    ['fname','lname','email','role','message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    setTimeout(() => {
+      document.getElementById('form-success').style.display = 'none';
+    }, 5000);
+  }
+</script>
+</body>
+</html>
