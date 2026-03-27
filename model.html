@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Heart Model — Project ModAnatomy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .model-header {
+      background: var(--deep); color: var(--cream);
+      padding: 88px 72px; position: relative; overflow: hidden;
+    }
+    .model-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 75% 50%, rgba(220,81,71,0.15) 0%, transparent 60%);
+    }
+    .model-header-inner { position: relative; z-index: 1; max-width: 660px; }
+    .prototype-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(242,196,192,0.12); border: 1px solid rgba(242,196,192,0.25);
+      color: var(--blush); border-radius: 20px;
+      padding: 5px 14px; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .prototype-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--blush); border-radius: 50%;
+    }
+    .model-header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      font-weight: 900; line-height: 0.97; letter-spacing: -0.03em; margin-bottom: 20px;
+    }
+    .model-header p { font-size: 1rem; line-height: 1.8; opacity: 0.6; max-width: 540px; }
+
+    .specs-band {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      background: var(--ink);
+    }
+    .spec-item {
+      padding: 36px 32px;
+      border-right: 1px solid rgba(242,196,192,0.1);
+      color: var(--cream);
+    }
+    .spec-item:last-child { border-right: none; }
+    .spec-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.35; margin-bottom: 10px; }
+    .spec-value { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--blush); line-height: 1; margin-bottom: 6px; }
+    .spec-desc { font-size: 0.82rem; opacity: 0.5; line-height: 1.5; }
+
+    .how-section { padding: 88px 72px; }
+    .steps { display: flex; flex-direction: column; margin-top: 52px; }
+    .step {
+      display: grid; grid-template-columns: 72px 1fr;
+      gap: 28px; padding: 36px 0;
+      border-bottom: 1px solid var(--border); align-items: start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-n {
+      font-family: 'Fraunces', serif; font-size: 2.8rem;
+      font-weight: 900; color: var(--brick); opacity: 0.22; line-height: 1;
+    }
+    .step h3 { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .step p { font-size: 0.9rem; line-height: 1.8; color: var(--muted); }
+
+    .bom-section { padding: 80px 72px; background: var(--warm); }
+    .bom-table { width: 100%; border-collapse: collapse; margin-top: 36px; }
+    .bom-table th {
+      text-align: left; font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 12px 16px; border-bottom: 2px solid var(--border);
+    }
+    .bom-table td { padding: 14px 16px; font-size: 0.875rem; border-bottom: 1px solid var(--border); color: var(--ink); }
+    .bom-table tr:hover td { background: rgba(108,27,21,0.04); }
+    .cost-chip {
+      background: var(--ink); color: var(--cream);
+      display: inline-block; padding: 4px 12px;
+      border-radius: 3px; font-size: 0.8rem; font-weight: 600;
+    }
+
+    .roadmap-section { padding: 88px 72px; }
+    .roadmap-cols {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 2px; background: var(--border);
+      border-radius: 10px; overflow: hidden; margin-top: 52px;
+    }
+    .roadmap-col { background: var(--cream); padding: 40px 32px; }
+    .roadmap-phase {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--brick);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .roadmap-col h3 {
+      font-family: 'Fraunces', serif; font-size: 1.35rem;
+      font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.2;
+    }
+    .roadmap-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .roadmap-col li {
+      font-size: 0.875rem; color: var(--muted);
+      padding-left: 16px; position: relative; line-height: 1.5;
+    }
+    .roadmap-col li::before { content: '→'; position: absolute; left: 0; color: var(--brick); font-size: 0.75rem; }
+
+    @media (max-width: 820px) {
+      .model-header, .how-section, .bom-section, .roadmap-section { padding: 52px 24px; }
+      .specs-band { grid-template-columns: 1fr 1fr; }
+      .roadmap-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/images/logo-full.png" alt="Project ModAnatomy"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="model.html">The Model</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Involved</a></li>
+  </ul>
+</nav>
+
+<div class="page-content">
+
+  <div class="model-header">
+    <div class="model-header-inner">
+      <div class="prototype-badge">Prototype V1 — Functional</div>
+      <h1>The Piston<br/>Heart Model</h1>
+      <p>A manually-actuated mechanical model that simulates the cardiac cycle using square pistons, foam-silicone gaskets, and one-way check valves. Successfully tested through 500+ pump cycles.</p>
+    </div>
+  </div>
+
+  <div class="specs-band">
+    <div class="spec-item">
+      <div class="spec-label">Materials cost</div>
+      <div class="spec-value">~$30</div>
+      <div class="spec-desc">Per unit, all supplies included</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Pump cycles tested</div>
+      <div class="spec-value">500+</div>
+      <div class="spec-desc">V1 prototype validation</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Chambers</div>
+      <div class="spec-value">6</div>
+      <div class="spec-desc">4 heart + 2 fluid reservoirs</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Manufacturing</div>
+      <div class="spec-value">FDM</div>
+      <div class="spec-desc">Ender 3, PLA+ filament</div>
+    </div>
+  </div>
+
+  <div class="how-section">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">The mechanics, step by step</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div>
+          <h3>Pull stroke — Diastole</h3>
+          <p>Pulling the lever arm retracts the piston, creating a vacuum inside the chamber. Suction draws colored water in through the inlet check valve — a mechanical analog for how the heart's chambers fill with blood during diastole.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div>
+          <h3>Push stroke — Systole</h3>
+          <p>Pressing the lever arm drives the piston forward, building pressure. The outlet check valve opens and water is ejected into the tubing — analogous to the heart's systolic contraction.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div>
+          <h3>Valve action — Unidirectional flow</h3>
+          <p>Aquarium-style check valves prevent backflow at both inlet and outlet. Students can observe that colored water only travels in one direction — the same principle behind the heart's mitral, aortic, tricuspid, and pulmonary valves.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div>
+          <h3>The key engineering challenge — Sealing a square piston</h3>
+          <p>Creating a reliable vacuum with a square cross-section required several iterations. The solution: craft foam cut to the piston face (edges glued only, center left to flex), fully coated with 100% silicone caulk, and cured for 6–24 hours. The result is a compressible, waterproof gasket that seals under negative pressure — without needing circular geometry or O-rings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bom-section">
+    <div class="section-label">Bill of materials</div>
+    <h2 class="section-title">What goes into each unit</h2>
+    <table class="bom-table">
+      <thead>
+        <tr><th>Component</th><th>Material / Spec</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Structural chambers &amp; pistons</td><td>PLA+ filament</td><td>0.2mm layer height, 30–50% infill, 3–4 perimeters</td></tr>
+        <tr><td>Snap-fit lever hinges</td><td>PLA+ filament</td><td>Scaled to 97–99% for proper fit</td></tr>
+        <tr><td>Gasket base layer</td><td>Craft foam, 2mm thick</td><td>Edges glued only — center must remain flexible</td></tr>
+        <tr><td>Gasket coating &amp; waterproofing</td><td>100% silicone caulk</td><td>Cured 6–24 hours before use</td></tr>
+        <tr><td>Flow tubing</td><td>Silicone, 6mm ID, transparent</td><td>Allows direct observation of fluid movement</td></tr>
+        <tr><td>Valves</td><td>Aquarium-style check valves</td><td>Ensures unidirectional flow</td></tr>
+        <tr><td>Flow medium</td><td>Water + glycerin + food coloring</td><td>Glycerin added for better flow visibility</td></tr>
+        <tr><td>Lubrication</td><td>Petroleum jelly</td><td>Applied to piston for smooth operation</td></tr>
+        <tr><td>Assembly adhesive</td><td>Hot glue</td><td>Non-structural joins</td></tr>
+        <tr>
+          <td style="font-weight:600;">Approximate total</td>
+          <td colspan="2"><span class="cost-chip">~$30 per unit</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="roadmap-section">
+    <div class="section-label">What's next</div>
+    <h2 class="section-title">Development roadmap</h2>
+    <div class="roadmap-cols">
+      <div class="roadmap-col">
+        <div class="roadmap-phase">
+          <i data-lucide="check" style="width:14px;height:14px;stroke-width:2.5"></i>
+          Now — V1
+        </div>
+        <h3>Functional Prototype</h3>
+        <ul>
+          <li>Square piston design validated</li>
+          <li>Foam-silicone sealing solution found</li>
+          <li>500+ pump cycles without failure</li>
+          <li>~$30 cost target met</li>
+          <li>All parts printable on Ender 3</li>
+        </ul>
+      </div>
+      <div class="roadmap-col">
+        <div class="roadmap-phase">
+          <i data-lucide="clock" style="width:14px;height:14px;stroke-width:2"></i>
+          Next — V2
+        </div>
+        <h3>Anatomical Refinement</h3>
+        <ul>
+          <li>Redesign chambers to be heart-shaped</li>
+          <li>Integrated 4-chamber assembly</li>
+          <li>Improved visual clarity</li>
+          <li>Classroom pilot exploration</li>
+          <li>Rental logistics development</li>
+        </ul>
+      </div>
+      <div class="roadmap-col">
+        <div class="roadmap-phase">
+          <i data-lucide="telescope" style="width:14px;height:14px;stroke-width:2"></i>
+          Vision
+        </div>
+        <h3>Organ System Expansion</h3>
+        <ul>
+          <li>Lungs — bellows-based concept</li>
+          <li>Kidneys — filtration analog</li>
+          <li>Digestive system — peristaltic model</li>
+          <li>Comparative anatomy variants</li>
+          <li>Full modular rental library</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo"><img src="assets/images/logo-full.png" alt="Project ModAnatomy"/></div>
+    <div class="footer-sub">Hands-on anatomy education for every classroom.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="model.html">The Model</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Project ModAnatomy. All rights reserved.</div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="js/main.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>
