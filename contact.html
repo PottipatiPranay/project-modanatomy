@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Get Involved — Project ModAnatomy</title>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"/>
   <link rel="stylesheet" href="css/styles.css"/>
   <style>
     .contact-wrap {
@@ -94,7 +95,7 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <i data-lucide="school" style="width:18px;height:18px;stroke-width:1.8"></i>
+          <i class="mdi mdi-school" style="font-size:18px;"></i>
         </div>
         <div class="contact-item-text">
           <span>Educators</span>
@@ -104,7 +105,7 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <i data-lucide="wrench" style="width:18px;height:18px;stroke-width:1.8"></i>
+          <i class="mdi mdi-wrench" style="font-size:18px;"></i>
         </div>
         <div class="contact-item-text">
           <span>Makers &amp; Engineers</span>
@@ -114,7 +115,7 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <i data-lucide="users" style="width:18px;height:18px;stroke-width:1.8"></i>
+          <i class="mdi mdi-account-multiple" style="font-size:18px;"></i>
         </div>
         <div class="contact-item-text">
           <span>Funders &amp; Organizations</span>
@@ -167,10 +168,8 @@
   <div class="footer-copy">© 2025 Project ModAnatomy. All rights reserved.</div>
 </footer>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="js/main.js"></script>
 <script>
-  lucide.createIcons();
   function submitForm() {
     const fname = document.getElementById('fname').value.trim();
     const email = document.getElementById('email').value.trim();

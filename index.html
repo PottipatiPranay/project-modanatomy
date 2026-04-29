@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Project ModAnatomy — Hands-On Human Biology</title>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"/>
   <link rel="stylesheet" href="css/styles.css"/>
   <style>
     /* HOME-SPECIFIC */
@@ -172,22 +173,22 @@
     <div class="hero-right">
       <div class="organ-grid">
         <div class="organ-tile active-tile">
-          <i data-lucide="heart" style="width:28px;height:28px;stroke:#F2C4C0;stroke-width:1.5"></i>
+          <i class="mdi mdi-heart" style="font-size:28px; color:#F2C4C0;"></i>
           <div class="organ-name">Heart</div>
           <div class="organ-status status-active">Prototype V1 ✓</div>
         </div>
         <div class="organ-tile">
-          <i data-lucide="wind" class="muted" style="width:28px;height:28px;stroke-width:1.5"></i>
+          <i class="mdi mdi-lungs muted" style="font-size:28px;"></i>
           <div class="organ-name">Lungs</div>
           <div class="organ-status status-planned">In Vision</div>
         </div>
         <div class="organ-tile">
-          <i data-lucide="droplets" class="muted" style="width:28px;height:28px;stroke-width:1.5"></i>
+          <i class="mdi mdi-water muted" style="font-size:28px;"></i>
           <div class="organ-name">Kidneys</div>
           <div class="organ-status status-planned">In Vision</div>
         </div>
         <div class="organ-tile">
-          <i data-lucide="plus-circle" class="muted" style="width:28px;height:28px;stroke-width:1.5"></i>
+          <i class="mdi mdi-plus-circle muted" style="font-size:28px;"></i>
           <div class="organ-name">More</div>
           <div class="organ-status status-planned">Exploring</div>
         </div>
@@ -209,19 +210,19 @@
     </div>
     <div class="design-pillars">
       <div class="pillar">
-        <i data-lucide="hand" style="width:20px;height:20px"></i>
+        <i class="mdi mdi-hand-front-right" style="font-size:20px;"></i>
         <div class="pillar-text"><h4>Hands-on by design</h4><p>Students physically operate each model rather than passively observing. The heart model uses manual pistons — you feel the resistance, the suction, the pressure.</p></div>
       </div>
       <div class="pillar">
-        <i data-lucide="eye" style="width:20px;height:20px"></i>
+        <i class="mdi mdi-eye" style="font-size:20px;"></i>
         <div class="pillar-text"><h4>Visually transparent</h4><p>Colored water flows through clear tubing. One-way valves are visible. Nothing is hidden. The goal is that the mechanics teach the biology.</p></div>
       </div>
       <div class="pillar">
-        <i data-lucide="tag" style="width:20px;height:20px"></i>
+        <i class="mdi mdi-label" style="font-size:20px;"></i>
         <div class="pillar-text"><h4>Radically affordable</h4><p>By renting model sets rather than selling them, schools pay a fraction of what commercial anatomy tools cost — and never worry about replacement parts or upkeep.</p></div>
       </div>
       <div class="pillar">
-        <i data-lucide="school" style="width:20px;height:20px"></i>
+        <i class="mdi mdi-school" style="font-size:20px;"></i>
         <div class="pillar-text"><h4>Built for the classroom</h4><p>Designed specifically for under-resourced middle and high schools. Our rental model means schools get access without the burden of ownership.</p></div>
       </div>
     </div>
@@ -234,22 +235,22 @@
     </div>
     <div class="organs-preview">
       <div class="organ-row">
-        <i data-lucide="heart" style="width:22px;height:22px;stroke:white;stroke-width:1.8"></i>
+        <i class="mdi mdi-heart" style="font-size:22px; color:white;"></i>
         <div class="organ-row-info"><div class="organ-row-name">Heart — Cardiac Cycle</div><div class="organ-row-desc">Piston-based, manual actuation, check valves</div></div>
         <span class="organ-row-badge badge-now">V1 Done</span>
       </div>
       <div class="organ-row">
-        <i data-lucide="wind" style="width:22px;height:22px;stroke:rgba(255,255,255,0.5);stroke-width:1.8"></i>
+        <i class="mdi mdi-lungs" style="font-size:22px; color:rgba(255,255,255,0.5);"></i>
         <div class="organ-row-info"><div class="organ-row-name">Lungs — Respiration</div><div class="organ-row-desc">Bellows-based concept under consideration</div></div>
         <span class="organ-row-badge badge-next">Vision</span>
       </div>
       <div class="organ-row">
-        <i data-lucide="droplets" style="width:22px;height:22px;stroke:rgba(255,255,255,0.5);stroke-width:1.8"></i>
+        <i class="mdi mdi-water" style="font-size:22px; color:rgba(255,255,255,0.5);"></i>
         <div class="organ-row-info"><div class="organ-row-name">Kidneys — Filtration</div><div class="organ-row-desc">Filtration column concept under consideration</div></div>
         <span class="organ-row-badge badge-next">Vision</span>
       </div>
       <div class="organ-row">
-        <i data-lucide="dna" style="width:22px;height:22px;stroke:rgba(255,255,255,0.5);stroke-width:1.8"></i>
+        <i class="mdi mdi-dna" style="font-size:22px; color:rgba(255,255,255,0.5);"></i>
         <div class="organ-row-info"><div class="organ-row-name">Comparative Anatomy</div><div class="organ-row-desc">Fish, amphibian, mammal heart variants</div></div>
         <span class="organ-row-badge badge-next">Vision</span>
       </div>
@@ -272,8 +273,6 @@
   <div class="footer-copy">© 2025 Project ModAnatomy. All rights reserved.</div>
 </footer>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="js/main.js"></script>
-<script>lucide.createIcons();</script>
 </body>
 </html>
