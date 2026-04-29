@@ -49,6 +49,143 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
+  // ─── EKG VISUALIZATION ───
+  const initEKG = () => {
+    const canvas = document.getElementById('ekgCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    const centerY = height / 2;
+    const lineColor = '#DC5147';
+    const gridColor = 'rgba(108, 27, 21, 0.06)';
+
+    let xPosition = 0;
+    let animationFrame = null;
+    const drawnPoints = [];
+    let viewportStart = 0;
+
+    // Waveform calculation (extracted for reusability)
+    const getWaveformY = (localX, baseline) => {
+      let y = baseline;
+      if (localX >= 20 && localX <= 50) {
+        const pProgress = (localX - 20) / 30;
+        y = baseline - 12 * Math.sin(pProgress * Math.PI);
+      } else if (localX >= 80 && localX <= 120) {
+        const qrsProgress = (localX - 80) / 40;
+        if (qrsProgress < 0.2) y = baseline + 15 * (qrsProgress / 0.2);
+        else if (qrsProgress < 0.4) y = baseline - 70 * ((qrsProgress - 0.2) / 0.2);
+        else if (qrsProgress < 0.6) y = baseline - 70 + 95 * ((qrsProgress - 0.4) / 0.2);
+        else y = baseline + 25 - 25 * ((qrsProgress - 0.6) / 0.4);
+      } else if (localX >= 150 && localX <= 190) {
+        const tProgress = (localX - 150) / 40;
+        y = baseline - 20 * Math.sin(tProgress * Math.PI);
+      }
+      return y;
+    };
+
+    // Set canvas context defaults
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 2.5;
+
+    const drawGrid = () => {
+      // Vertical lines (with viewport shift)
+      ctx.strokeStyle = gridColor;
+      ctx.lineWidth = 0.5;
+      const lineSpacing = 50;
+      const startX = viewportStart % lineSpacing;
+      for (let x = -startX; x < width; x += lineSpacing) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+
+      // Horizontal lines
+      for (let y = 0; y < height; y += 25) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // Center baseline
+      ctx.strokeStyle = 'rgba(108, 27, 21, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(width, centerY);
+      ctx.stroke();
+    };
+
+    const animate = () => {
+      const baseline = centerY;
+      const cycleWidth = 300;
+      const batchSize = 3;
+
+      // Generate points
+      for (let i = 0; i < batchSize; i++) {
+        const localX = xPosition % cycleWidth;
+        const y = getWaveformY(localX, baseline);
+        drawnPoints.push({ xAbs: xPosition, y });
+        xPosition++;
+      }
+
+      // Update viewport
+      viewportStart = xPosition - width;
+      if (viewportStart < 0) viewportStart = 0;
+
+      // Trim old points
+      while (drawnPoints.length > 0 && drawnPoints[0].xAbs < viewportStart - width) {
+        drawnPoints.shift();
+      }
+
+      // Render
+      ctx.clearRect(0, 0, width, height);
+      drawGrid();
+
+      if (drawnPoints.length > 1) {
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+
+        let isFirstPoint = true;
+        for (let i = 0; i < drawnPoints.length; i++) {
+          const screenX = (drawnPoints[i].xAbs - viewportStart) % width;
+          if (isFirstPoint) {
+            ctx.moveTo(screenX, drawnPoints[i].y);
+            isFirstPoint = false;
+          } else {
+            ctx.lineTo(screenX, drawnPoints[i].y);
+          }
+        }
+        ctx.stroke();
+      }
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    drawGrid();
+    animate();
+
+    // Pause when not visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting && animationFrame) {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        } else if (entry.isIntersecting && !animationFrame) {
+          animate();
+        }
+      });
+    });
+    observer.observe(canvas);
+  };
+
+  initEKG();
+
   // ─── STAGGERED ANIMATIONS FOR GRID ITEMS ───
   const animateGridItems = () => {
     // Principles grid

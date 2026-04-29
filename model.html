@@ -102,9 +102,70 @@
     }
     .roadmap-col li::before { content: '→'; position: absolute; left: 0; color: var(--brick); font-size: 0.75rem; }
 
+    /* ── EKG VISUALIZATION ── */
+    .ekg-section {
+      padding: 72px;
+      background: linear-gradient(135deg, var(--cream) 0%, rgba(253, 246, 243, 0.5) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .ekg-section::before {
+      content: ''; position: absolute; top: -150px; right: -150px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(220, 81, 71, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .ekg-container {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .ekg-canvas-wrapper {
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(108, 27, 21, 0.08);
+      border: 1px solid var(--border);
+    }
+    #ekgCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .ekg-info h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 20px;
+    }
+    .ekg-info h3 em {
+      color: var(--brick); font-style: italic; font-weight: 300;
+    }
+    .ekg-info p {
+      font-size: 0.95rem; line-height: 1.8;
+      color: var(--muted); margin-bottom: 18px;
+    }
+    .ekg-wave-label {
+      display: flex; align-items: center; gap: 12px;
+      margin-top: 24px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .wave-label-icon {
+      width: 60px; height: 20px;
+      flex-shrink: 0;
+      color: var(--brick);
+    }
+    .wave-label-text {
+      font-size: 0.85rem; color: var(--ink); font-weight: 600;
+    }
+    .wave-label-desc {
+      font-size: 0.75rem; color: var(--muted); margin-top: 2px;
+    }
+
     @media (max-width: 820px) {
       .model-header, .how-section, .bom-section, .roadmap-section { padding: 52px 24px; }
+      .ekg-section { padding: 52px 24px; }
       .specs-band { grid-template-columns: 1fr 1fr; }
+      .ekg-container { grid-template-columns: 1fr; gap: 40px; }
       .roadmap-cols { grid-template-columns: 1fr; }
     }
   </style>
@@ -153,6 +214,59 @@
       <div class="spec-label">Manufacturing</div>
       <div class="spec-value">FDM</div>
       <div class="spec-desc">Ender 3, PLA+ filament</div>
+    </div>
+  </div>
+
+  <div class="ekg-section">
+    <div class="ekg-container">
+      <div class="ekg-canvas-wrapper">
+        <canvas id="ekgCanvas" width="500" height="140"></canvas>
+      </div>
+
+      <div class="ekg-info">
+        <h3>The Electrical <em>Signature</em></h3>
+        <p>As your model's piston pumps, it's performing the same mechanical work that the heart's electrical system coordinates. This EKG waveform shows what that electrical signal looks like in a real heart.</p>
+        <p>Each heartbeat follows the same pattern: atrial activation (P wave), ventricular activation (QRS complex), and ventricular recovery (T wave).</p>
+        
+        <div class="ekg-wave-label">
+          <svg class="wave-label-icon" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="15" y2="10" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M 15 10 Q 20 3 25 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="25" y1="10" x2="60" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <div>
+            <div class="wave-label-text">P Wave</div>
+            <div class="wave-label-desc">Atrial depolarization (filling)</div>
+          </div>
+        </div>
+
+        <div class="ekg-wave-label">
+          <svg class="wave-label-icon" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="10" y2="10" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="10" y1="10" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="15" y1="15" x2="20" y2="2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="20" y1="2" x2="25" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="25" y1="12" x2="30" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="30" y1="10" x2="60" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <div>
+            <div class="wave-label-text">QRS Complex</div>
+            <div class="wave-label-desc">Ventricular activation (pumping)</div>
+          </div>
+        </div>
+
+        <div class="ekg-wave-label">
+          <svg class="wave-label-icon" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="15" y2="10" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M 15 10 Q 25 2 35 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="35" y1="10" x2="60" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <div>
+            <div class="wave-label-text">T Wave</div>
+            <div class="wave-label-desc">Ventricular recovery (resting)</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
