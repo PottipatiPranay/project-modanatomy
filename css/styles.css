@@ -562,7 +562,7 @@ svg.mdi {
   .cursor {
     display: block;
     position: fixed; top: 0; left: 0; z-index: 3000;
-    width: 30px; height: 30px;
+    width: 28px; height: 36px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -574,8 +574,14 @@ svg.mdi {
     transform-origin: 7px 3px;
     transition: transform 0.25s ease;
   }
-  .cursor.is-hover svg { transform: scale(1.4); }
-  .cursor.is-down svg { transform: scale(0.9); }
+  .cursor img {
+    display: block; width: 100%; height: 100%;
+    transform-origin: 5px 1px;
+    transition: transform 0.25s ease;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35));
+  }
+  .cursor.is-hover :is(svg, img) { transform: scale(1.4); }
+  .cursor.is-down :is(svg, img) { transform: scale(0.9); }
 }
 @media (prefers-reduced-motion: reduce) {
   .cursor { display: none !important; }

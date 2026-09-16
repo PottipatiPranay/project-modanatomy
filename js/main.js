@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cur = document.createElement('div');
     cur.className = 'cursor';
     cur.setAttribute('aria-hidden', 'true');
-    cur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5.5 2.5 19.5 12l-7.2 1.6-2.6 7z" fill="#3D0A08" stroke="#FAF0EC" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    cur.innerHTML = '<img src="assets/images/cursor.svg" alt=""/>';
     document.body.appendChild(cur);
 
     let cx = -100, cy = -100, tx = -100, ty = -100, raf = null;
@@ -375,8 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(render); };
     document.addEventListener('mousemove', (e) => {
-      tx = e.clientX - 7;
-      ty = e.clientY - 3;
+      tx = e.clientX - 5;
+      ty = e.clientY - 1;
       cur.classList.add('is-visible');
       kick();
     });
