@@ -350,4 +350,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const wipe = document.querySelector('.wipe');
     if (wipe) wipe.classList.remove('is-covering');
   }
+
+  // ─── CUSTOM CURSOR (desktop pointers only) ───
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (finePointer && !noMotion) {
+    document.body.classList.add('custom-cursor');
+    const cur = document.createElement('div');
+    cur.className = 'cursor';
+    cur.setAttribute('aria-hidden', 'true');
+    cur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5.5 2.5 19.5 12l-7.2 1.6-2.6 7z" fill="#3D0A08" stroke="#FAF0EC" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    document.body.appendChild(cur);
+
+    let cx = -100, cy = -100, tx = -100, ty = -100, raf = null;
+    const render = () => {
+      cx += (tx - cx) * 0.4;
+      cy += (ty - cy) * 0.4;
+      cur.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+        raf = requestAnimationFrame(render);
+      } else {
+        raf = null;
+      }
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(render); };
+    document.addEventListener('mousemove', (e) => {
+      tx = e.clientX - 7;
+      ty = e.clientY - 3;
+      cur.classList.add('is-visible');
+      kick();
+    });
+    const hideCursor = () => cur.classList.remove('is-visible');
+    document.documentElement.addEventListener('mouseleave', hideCursor);
+    document.addEventListener('mouseout', (e) => { if (!e.relatedTarget) hideCursor(); });
+    window.addEventListener('blur', hideCursor);
+    document.addEventListener('mousedown', () => cur.classList.add('is-down'));
+    document.addEventListener('mouseup', () => cur.classList.remove('is-down'));
+    document.addEventListener('mouseover', (e) => {
+      cur.classList.toggle('is-hover', !!e.target.closest('a, button, .tcard, select, label'));
+    });
+  }
 });

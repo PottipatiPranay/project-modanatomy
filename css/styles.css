@@ -547,3 +547,36 @@ svg.mdi {
     text-align: center; border-radius: 4px; margin-top: 10px;
   }
 }
+
+/* ── CUSTOM CURSOR (desktop pointers only) ── */
+.cursor { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor { cursor: none; }
+  body.custom-cursor a,
+  body.custom-cursor button,
+  body.custom-cursor label,
+  body.custom-cursor select,
+  body.custom-cursor .tcard { cursor: none; }
+  body.custom-cursor input,
+  body.custom-cursor textarea { cursor: auto; }
+  .cursor {
+    display: block;
+    position: fixed; top: 0; left: 0; z-index: 3000;
+    width: 30px; height: 30px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    will-change: transform;
+  }
+  .cursor.is-visible { opacity: 1; }
+  .cursor svg {
+    display: block; width: 100%; height: 100%; overflow: visible;
+    transform-origin: 7px 3px;
+    transition: transform 0.25s ease;
+  }
+  .cursor.is-hover svg { transform: scale(1.4); }
+  .cursor.is-down svg { transform: scale(0.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor { display: none !important; }
+}
