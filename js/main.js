@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
       wipe = document.createElement('div');
       wipe.className = 'wipe is-covering';
       wipe.setAttribute('aria-hidden', 'true');
-      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-full.webp" alt="Project ModAnatomy" width="600" height="150"/></div>';
+      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-loader.svg" alt="Project ModAnatomy" width="600" height="150"/></div>';
       document.body.appendChild(wipe);
     }
 

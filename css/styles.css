@@ -467,7 +467,7 @@ footer:hover .footer-logo img {
 .wipe:not(.is-covering) .wipe-brick { transition-delay: 0.08s; }
 .wipe-logo-img {
   width: min(260px, 60vw); height: auto;
-  opacity: 0; filter: brightness(0) invert(1);
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 .wipe.is-covering .wipe-logo-img { opacity: 0.92; transition-delay: 0.3s; }
