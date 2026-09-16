@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (firstVisit) {
       try { localStorage.setItem('moda-seen', '1'); } catch (err) {}
       wipe.classList.add('wipe-slow');
-      setTimeout(reveal, 200);
+      setTimeout(reveal, 100);
     } else {
       reveal();
     }
