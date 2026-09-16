@@ -380,10 +380,10 @@ footer:hover .footer-logo img {
   transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(220, 81, 71, 0.08);
 }
-.pillar i { 
+.pillar :is(i, svg) { 
   transition: transform 0.3s ease;
 }
-.pillar:hover i { 
+.pillar:hover :is(i, svg) { 
   transform: scale(1.15);
 }
 .pillar-text h4 { transition: color 0.3s ease; }
@@ -397,10 +397,10 @@ footer:hover .footer-logo img {
   transform: translateY(-3px);
   border-color: rgba(242,196,192,0.3);
 }
-.organ-tile i { 
+.organ-tile :is(i, svg) { 
   transition: transform 0.3s ease, filter 0.3s ease;
 }
-.organ-tile:hover i { 
+.organ-tile:hover :is(i, svg) { 
   transform: scale(1.15);
   filter: drop-shadow(0 4px 8px rgba(242, 196, 192, 0.2));
 }
@@ -412,8 +412,8 @@ footer:hover .footer-logo img {
   background: rgba(255,255,255,0.15);
   transform: translateX(4px);
 }
-.organ-row i { transition: transform 0.3s ease; }
-.organ-row:hover i { transform: scale(1.2); }
+.organ-row :is(i, svg) { transition: transform 0.3s ease; }
+.organ-row:hover :is(i, svg) { transform: scale(1.2); }
 .organ-row-name { transition: color 0.3s ease; }
 .organ-row:hover .organ-row-name { color: #FAF0EC; }
 
@@ -472,6 +472,10 @@ footer:hover .footer-logo img {
 }
 .wipe-logo em { font-style: italic; font-weight: 300; color: var(--blush); }
 .wipe.is-covering .wipe-logo { opacity: 1; transition-delay: 0.3s; }
+.wipe-brick, .wipe-deep { border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; }
+/* content fades beneath the curtain for a softer handoff */
+.page-content { transition: opacity 0.45s ease; }
+body.wipe-covering .page-content { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   .wipe-panel { transition: none; }
 }
@@ -491,6 +495,12 @@ footer:hover .footer-logo img {
   .two-col { gap: 36px; }
   .prose h2 { font-size: 1.6rem; }
   .section-title { font-size: 1.9rem; }
+}
+
+/* ── INLINE SVG ICONS (replaces icon font) ── */
+svg.mdi {
+  width: 1em; height: 1em;
+  fill: currentColor; flex-shrink: 0;
 }
 
 /* ── MOBILE MENU ── */

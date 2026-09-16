@@ -299,13 +299,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Reveal on first paint
+    document.body.classList.add('wipe-covering');
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => wipe.classList.remove('is-covering'));
+      requestAnimationFrame(() => {
+        wipe.classList.remove('is-covering');
+        document.body.classList.remove('wipe-covering');
+      });
     });
 
     // Re-reveal when returning via back/forward cache
     window.addEventListener('pageshow', (e) => {
-      if (e.persisted) wipe.classList.remove('is-covering');
+      if (e.persisted) {
+        wipe.classList.remove('is-covering');
+        document.body.classList.remove('wipe-covering');
+      }
     });
 
     // Cover, then navigate
@@ -322,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         e.preventDefault();
         wipe.classList.add('is-covering');
+        document.body.classList.add('wipe-covering');
         setTimeout(() => { window.location.href = href; }, 750);
       });
     });

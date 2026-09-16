@@ -7,11 +7,13 @@
   <title>Get Involved — Project ModAnatomy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
-  <link rel="preload" as="image" href="assets/images/logo-full.png"/>
+  <link rel="preload" as="image" href="assets/images/logo-full.webp"/>
+  <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/fraunces/v38/6NUs8FyLNQOQZAnv9ZwNjucMHVn85Ni7emAe9lKqZTnbB-gzTK0K1ChJdt9vIVYX9G37lvd9mv0iQublWII.woff2" crossorigin/>
+  <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/fraunces/v38/6NUu8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib14c7qv8oRcTn.woff2" crossorigin/>
+  <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap&display=swap" rel="stylesheet"/>
   <style>.wipe{position:fixed;inset:0;z-index:2000;pointer-events:none}.wipe.is-covering{pointer-events:all}.wipe-panel{position:absolute;inset:0;transform:translate3d(0,102%,0)}.wipe-brick{background:#DC5147}.wipe-deep{background:#3D0A08;display:flex;align-items:center;justify-content:center}.wipe.is-covering .wipe-panel{transform:translate3d(0,0,0)}.wipe-logo{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,6vw,4rem);letter-spacing:-0.02em;color:#FAF0EC;opacity:0}.wipe-logo em{font-style:italic;font-weight:300;color:#F2C4C0}.wipe.is-covering .wipe-logo{opacity:1}</style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" media="print" onload="this.media='all'"/><noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"/><style>.wipe{display:none!important}</style></noscript>
+  <noscript><style>.wipe{display:none!important}</style></noscript>
   <link rel="stylesheet" href="css/styles.css"/>
   <style>
     .contact-wrap {
@@ -34,7 +36,7 @@
       border: 1px solid rgba(242,196,192,0.18);
       border-radius: 7px; display: flex; align-items: center; justify-content: center;
     }
-    .contact-icon i { color: var(--blush); }
+    .contact-icon :is(i, svg) { color: var(--blush); }
     .contact-item-text span {
       display: block; font-size: 0.68rem; letter-spacing: 0.1em;
       text-transform: uppercase; opacity: 0.35; margin-bottom: 4px;
@@ -86,7 +88,7 @@
       animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
     }
     
-    .success-icon i {
+    .success-icon :is(i, svg) {
       font-size: 32px; color: white;
     }
     
@@ -135,7 +137,7 @@
 
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="assets/images/logo-full.png" alt="Project ModAnatomy" width="2000" height="500"/>
+    <img src="assets/images/logo-full.webp" alt="Project ModAnatomy" width="600" height="150"/>
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
@@ -165,7 +167,7 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <i class="mdi mdi-school" style="font-size:18px;"></i>
+          <svg class="mdi mdi-school" style="font-size:18px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/></svg>
         </div>
         <div class="contact-item-text">
           <span>Educators</span>
@@ -175,7 +177,7 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <i class="mdi mdi-wrench" style="font-size:18px;"></i>
+          <svg class="mdi mdi-wrench" style="font-size:18px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7,19L13.6,9.9C14.5,7.6 14,4.9 12.1,3C10.1,1 7.1,0.6 4.7,1.7L9,6L6,9L1.6,4.7C0.4,7.1 0.9,10.1 2.9,12.1C4.8,14 7.5,14.5 9.8,13.6L18.9,22.7C19.3,23.1 19.9,23.1 20.3,22.7L22.6,20.4C23.1,20 23.1,19.3 22.7,19Z"/></svg>
         </div>
         <div class="contact-item-text">
           <span>Makers &amp; Engineers</span>
@@ -185,7 +187,7 @@
 
       <div class="contact-item">
         <div class="contact-icon">
-          <i class="mdi mdi-account-multiple" style="font-size:18px;"></i>
+          <svg class="mdi mdi-account-multiple" style="font-size:18px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z"/></svg>
         </div>
         <div class="contact-item-text">
           <span>Funders &amp; Organizations</span>
@@ -246,7 +248,7 @@
 <div class="success-modal-overlay" id="successModal">
   <div class="success-modal">
     <div class="success-icon">
-      <i class="mdi mdi-check-circle"></i>
+      <svg class="mdi mdi-check-circle" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>
     </div>
     <h2 class="success-title">Message Sent!</h2>
     <p class="success-message">Thanks for reaching out. We'll review your message and get back to you shortly.</p>
@@ -256,7 +258,7 @@
 
 <footer>
   <div>
-    <div class="footer-logo"><img src="assets/images/logo-full.png" alt="Project ModAnatomy" width="2000" height="500"/></div>
+    <div class="footer-logo"><img src="assets/images/logo-full.webp" alt="Project ModAnatomy" width="600" height="150"/></div>
     <div class="footer-sub">Hands-on anatomy education for every classroom.</div>
   </div>
   <ul class="footer-links">
