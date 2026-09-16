@@ -395,7 +395,7 @@ footer:hover .footer-logo img {
 }
 .organ-tile:hover { 
   background: rgba(255,255,255,0.1);
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.04);
   border-color: rgba(242,196,192,0.3);
 }
 .organ-tile :is(i, svg) { 
@@ -585,4 +585,17 @@ svg.mdi {
 }
 @media (prefers-reduced-motion: reduce) {
   .cursor { display: none !important; }
+}
+
+/* ── KONAMI CONFETTI ── */
+.heart-confetti {
+  position: fixed; top: -40px; z-index: 4000;
+  pointer-events: none; color: var(--brick);
+  animation: heart-fall 2.7s ease-in forwards;
+}
+@keyframes heart-fall {
+  to { transform: translateY(112vh) rotate(320deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heart-confetti { display: none; }
 }

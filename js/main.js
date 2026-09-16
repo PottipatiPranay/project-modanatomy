@@ -390,4 +390,33 @@ document.addEventListener('DOMContentLoaded', () => {
       cur.classList.toggle('is-hover', !!e.target.closest('a, button, .tcard, select, label'));
     });
   }
+
+  // ─── KONAMI FLIP WAVE (team page) ───
+  const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+  let konamiIdx = 0;
+  const heartBurst = () => {
+    for (let i = 0; i < 36; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart-confetti';
+      h.textContent = '♥';
+      h.style.left = (Math.random() * 100) + 'vw';
+      h.style.fontSize = (14 + Math.random() * 22) + 'px';
+      h.style.animationDelay = (Math.random() * 0.6) + 's';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 3400);
+    }
+  };
+  document.addEventListener('keydown', (e) => {
+    konamiIdx = (e.code === KONAMI[konamiIdx]) ? konamiIdx + 1 : (e.code === KONAMI[0] ? 1 : 0);
+    if (konamiIdx === KONAMI.length) {
+      konamiIdx = 0;
+      const cards = document.querySelectorAll('.tcard');
+      if (!cards.length) return;
+      cards.forEach((c, i) => {
+        setTimeout(() => c.classList.add('flipped'), i * 180);
+        setTimeout(() => c.classList.remove('flipped'), 2300 + i * 180);
+      });
+      if (!reduceMotion) heartBurst();
+    }
+  });
 });
