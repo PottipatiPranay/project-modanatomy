@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ─── ACTIVE NAV LINK ───
   const page = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(a => {
+  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
     const href = a.getAttribute('href');
     if (href === page || (page === 'index.html' && href === 'index.html')) {
       a.classList.add('active');
@@ -20,6 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
       ticking = false;
     });
   }, { passive: true });
+
+  // ─── MOBILE MENU ───
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (navToggle && mobileMenu) {
+    const setMenu = (open) => {
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      mobileMenu.classList.toggle('open', open);
+    };
+    navToggle.addEventListener('click', () => {
+      setMenu(!mobileMenu.classList.contains('open'));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setMenu(false));
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 820) setMenu(false);
+    });
+  }
 
   // ─── SCROLL-TRIGGERED ANIMATIONS ───
   const observerOptions = {
