@@ -294,16 +294,18 @@ document.addEventListener('DOMContentLoaded', () => {
       wipe = document.createElement('div');
       wipe.className = 'wipe is-covering';
       wipe.setAttribute('aria-hidden', 'true');
-      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><div class="wipe-logo">Mod<em>Anatomy</em></div></div>';
+      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-full.webp" alt="Project ModAnatomy" width="600" height="150"/></div>';
       document.body.appendChild(wipe);
     }
 
-    // Reveal on first paint
+    // Slow first-load reveal so the curtain registers
     document.body.classList.add('wipe-covering');
+    wipe.classList.add('wipe-slow');
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         wipe.classList.remove('is-covering');
         document.body.classList.remove('wipe-covering');
+        setTimeout(() => wipe.classList.remove('wipe-slow'), 1500);
       });
     });
 
@@ -315,23 +317,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Cover, then navigate
+    // Same-page links smooth-scroll instead of reloading
     document.querySelectorAll('a[href$=".html"]').forEach(link => {
       link.addEventListener('click', (e) => {
-        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         const href = link.getAttribute('href');
         if (!href || href.startsWith('http') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
         const current = window.location.pathname.split('/').pop() || 'index.html';
         if (href === current) {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
-          return;
         }
-        e.preventDefault();
-        wipe.classList.add('is-covering');
-        document.body.classList.add('wipe-covering');
-        setTimeout(() => { window.location.href = href; }, 520);
       });
     });
+  } else {
+    // Reduced motion: never trap content behind the curtain
+    const wipe = document.querySelector('.wipe');
+    if (wipe) wipe.classList.remove('is-covering');
   }
 });
