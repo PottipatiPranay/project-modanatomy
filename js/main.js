@@ -298,16 +298,24 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(wipe);
     }
 
-    // Long first-load reveal: hold the logo, then lift slowly
-    document.body.classList.add('wipe-covering');
-    wipe.classList.add('wipe-slow');
-    setTimeout(() => {
+    // First visit: hold the logo, then lift slowly. Later visits: quick lift.
+    let firstVisit = true;
+    try { firstVisit = !sessionStorage.getItem('moda-seen'); } catch (err) {}
+    const reveal = () => {
       requestAnimationFrame(() => {
         wipe.classList.remove('is-covering');
         document.body.classList.remove('wipe-covering');
         setTimeout(() => wipe.classList.remove('wipe-slow'), 2000);
       });
-    }, 450);
+    };
+    document.body.classList.add('wipe-covering');
+    if (firstVisit) {
+      try { sessionStorage.setItem('moda-seen', '1'); } catch (err) {}
+      wipe.classList.add('wipe-slow');
+      setTimeout(reveal, 450);
+    } else {
+      reveal();
+    }
 
     // Re-reveal when returning via back/forward cache
     window.addEventListener('pageshow', (e) => {
@@ -317,7 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Short curtain on navigation
+    // Short curtain on navigation (last click wins)
+    let navTimer = null;
     document.querySelectorAll('a[href$=".html"]').forEach(link => {
       link.addEventListener('click', (e) => {
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -332,7 +341,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         wipe.classList.add('is-covering');
         document.body.classList.add('wipe-covering');
-        setTimeout(() => { window.location.href = href; }, 500);
+        if (navTimer) clearTimeout(navTimer);
+        navTimer = setTimeout(() => { window.location.href = href; }, 500);
       });
     });
   } else {
