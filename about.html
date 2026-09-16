@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="About Project ModAnatomy — mechanical anatomy teaching tools rented to classrooms that can't afford commercial alternatives."/>
   <title>About — Project ModAnatomy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -10,14 +11,14 @@
   <link rel="preload" as="image" href="assets/images/logo-full.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap&display=swap" rel="stylesheet"/>
   <style>.wipe{position:fixed;inset:0;z-index:2000;pointer-events:none}.wipe.is-covering{pointer-events:all}.wipe-panel{position:absolute;inset:0;transform:translate3d(0,102%,0)}.wipe-brick{background:#DC5147}.wipe-deep{background:#3D0A08;display:flex;align-items:center;justify-content:center}.wipe.is-covering .wipe-panel{transform:translate3d(0,0,0)}.wipe-logo{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,6vw,4rem);letter-spacing:-0.02em;color:#FAF0EC;opacity:0}.wipe-logo em{font-style:italic;font-weight:300;color:#F2C4C0}.wipe.is-covering .wipe-logo{opacity:1}</style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" media="print" onload="this.media='all'"/><noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"/></noscript>
   <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
 <div class="wipe is-covering" aria-hidden="true"><div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><div class="wipe-logo">Mod<em>Anatomy</em></div></div></div>
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="assets/images/logo-full.png" alt="Project ModAnatomy"/>
+    <img src="assets/images/logo-full.png" alt="Project ModAnatomy" width="2000" height="500"/>
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
@@ -28,7 +29,7 @@
   </ul>
 </nav>
 
-<div class="page-content">
+<div class="page-content" role="main">
 
   <div class="page-header">
     <div class="page-header-label">About Project ModAnatomy</div>
@@ -91,7 +92,7 @@
 
 <footer>
   <div>
-    <div class="footer-logo"><img src="assets/images/logo-full.png" alt="Project ModAnatomy"/></div>
+    <div class="footer-logo"><img src="assets/images/logo-full.png" alt="Project ModAnatomy" width="2000" height="500"/></div>
     <div class="footer-sub">Hands-on anatomy education for every classroom.</div>
   </div>
   <ul class="footer-links">
