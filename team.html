@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meet the Team — Project ModAnatomy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <link rel="preload" as="image" href="assets/images/logo-full.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap&display=swap" rel="stylesheet"/>
+  <style>.wipe{position:fixed;inset:0;z-index:2000;pointer-events:none}.wipe.is-covering{pointer-events:all}.wipe-panel{position:absolute;inset:0;transform:translate3d(0,102%,0)}.wipe-brick{background:#DC5147}.wipe-deep{background:#3D0A08;display:flex;align-items:center;justify-content:center}.wipe.is-covering .wipe-panel{transform:translate3d(0,0,0)}.wipe-logo{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,6vw,4rem);letter-spacing:-0.02em;color:#FAF0EC;opacity:0}.wipe-logo em{font-style:italic;font-weight:300;color:#F2C4C0}.wipe.is-covering .wipe-logo{opacity:1}</style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    /* ── MEET THE TEAM — trading cards ── */
+    .tgrid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 22px; margin-top: 48px;
+    }
+    .tcard {
+      perspective: 1600px;
+      cursor: pointer; outline: none;
+    }
+    .tcard-inner {
+      display: grid; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+    .tcard:hover .tcard-inner, .tcard.flipped .tcard-inner { transform: rotateY(180deg); }
+    .tface {
+      grid-area: 1 / 1;
+      min-height: 400px;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      box-shadow: 0 6px 18px rgba(108,27,21,0.08);
+      transition: box-shadow 0.5s ease;
+    }
+    .tcard:hover .tface, .tcard.flipped .tface { box-shadow: 0 16px 34px rgba(108,27,21,0.16); }
+    /* FRONT */
+    .tfront { background: var(--warm); }
+    .tphoto {
+      height: 250px; position: relative; flex-shrink: 0;
+      background: linear-gradient(160deg, var(--blush), var(--warm));
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .tphoto .fallback {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--ink); color: var(--blush);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .tfront-body { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
+    .trole {
+      align-self: flex-start; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--brick); background: rgba(220,81,71,0.1); border: 1px solid rgba(220,81,71,0.25);
+      padding: 4px 10px; border-radius: 20px;
+    }
+    .tflip-hint {
+      margin-top: auto; padding-top: 10px;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
+      display: flex; align-items: center; gap: 6px;
+    }
+    /* BACK — clean bio */
+    .tback { background: var(--deep); color: var(--cream); transform: rotateY(180deg); }
+    .tback-head { padding: 16px 20px 12px; border-bottom: 1px solid rgba(242,196,192,0.15); }
+    .tback-head .tset { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blush); }
+    .tback-head h4 { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 900; margin-top: 6px; color: var(--cream); letter-spacing: -0.02em; line-height: 1.15; }
+    .tback-body { padding: 14px 20px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .tbio { font-size: 0.8rem; line-height: 1.6; opacity: 0.8; }
+    .tnote {
+      font-size: 0.78rem; line-height: 1.6; font-style: italic;
+      color: var(--blush); opacity: 0.9;
+      border-left: 2px solid var(--brick); padding-left: 12px;
+    }
+    .tnote .tnote-label {
+      display: block; font-style: normal; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px;
+    }
+
+    @media (max-width: 1100px) { .tgrid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) {
+      .tgrid { grid-template-columns: 1fr; }
+      .tface { min-height: 440px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tcard-inner { transition: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="wipe is-covering" aria-hidden="true"><div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><div class="wipe-logo">Mod<em>Anatomy</em></div></div></div>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="assets/images/logo-full.png" alt="Project ModAnatomy"/></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="model.html">The Model</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Involved</a></li>
+  </ul>
+</nav>
+
+<div class="page-content">
+
+  <div class="page-header">
+    <div class="page-header-label">Meet the Team</div>
+    <h1>The people<br/>behind <em>ModAnatomy.</em></h1>
+    <p>Hover (or tap) a card to flip it — front is the headshot, back is their role + words.</p>
+  </div>
+
+  <div class="content-block">
+    <div class="section-label">Our team</div>
+    <h2 class="section-title">Meet the <em>team.</em></h2>
+
+    <div class="tgrid">
+
+      <!-- PRANAY -->
+      <div class="tcard" tabindex="0">
+        <div class="tcard-inner">
+          <div class="tface tfront">
+            <div class="tphoto">
+              <div class="fallback"><i class="mdi mdi-account-tie" style="font-size:32px;"></i></div>
+              <img src="assets/images/team/director.jpg" alt="Pranay Pottipati" onerror="this.remove()"/>
+            </div>
+            <div class="tfront-body">
+              <div class="tname">Pranay Pottipati</div>
+              <div class="trole">Director</div>
+              <div class="tflip-hint"><i class="mdi mdi-rotate-3d"></i> Hover to flip</div>
+            </div>
+          </div>
+          <div class="tface tback">
+            <div class="tback-head"><div class="tset">Director</div><h4>Pranay Pottipati</h4></div>
+            <div class="tback-body">
+              <p class="tbio">Director. Sets the vision for Project ModAnatomy — guiding design priorities, partnerships, and the rental-library goal.</p>
+              <p class="tnote"><span class="tnote-label">In their words</span>[Ask Pranay for 1–2 sentences — why this project, what they do.]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AKHIL -->
+      <div class="tcard" tabindex="0">
+        <div class="tcard-inner">
+          <div class="tface tfront">
+            <div class="tphoto">
+              <div class="fallback"><i class="mdi mdi-cog" style="font-size:32px;"></i></div>
+              <img src="assets/images/team/engineer-lead.jpg" alt="Akhil Tumati" onerror="this.remove()"/>
+            </div>
+            <div class="tfront-body">
+              <div class="tname">Akhil Tumati</div>
+              <div class="trole">Co-Director / Engineer Lead</div>
+              <div class="tflip-hint"><i class="mdi mdi-rotate-3d"></i> Hover to flip</div>
+            </div>
+          </div>
+          <div class="tface tback">
+            <div class="tback-head"><div class="tset">Co-Director / Engineer Lead</div><h4>Akhil Tumati</h4></div>
+            <div class="tback-body">
+              <p class="tbio">Co-Director / Engineer Lead. Leads prototyping — pistons, sealing, 3D-printed chambers — built classroom-ready.</p>
+              <p class="tnote"><span class="tnote-label">In their words</span>[Ask Akhil for 1–2 sentences — why this project, what they do.]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADITYA -->
+      <div class="tcard" tabindex="0">
+        <div class="tcard-inner">
+          <div class="tface tfront">
+            <div class="tphoto">
+              <div class="fallback"><i class="mdi mdi-share-variant" style="font-size:32px;"></i></div>
+              <img src="assets/images/team/social-lead.jpg" alt="Aditya Ranjithkumar" onerror="this.remove()"/>
+            </div>
+            <div class="tfront-body">
+              <div class="tname">Aditya Ranjithkumar</div>
+              <div class="trole">Social Media Lead</div>
+              <div class="tflip-hint"><i class="mdi mdi-rotate-3d"></i> Hover to flip</div>
+            </div>
+          </div>
+          <div class="tface tback">
+            <div class="tback-head"><div class="tset">Social Media Lead</div><h4>Aditya Ranjithkumar</h4></div>
+            <div class="tback-body">
+              <p class="tbio">Social Media Lead. Shares the build — prototypes, classroom moments, and progress updates.</p>
+              <p class="tnote"><span class="tnote-label">In their words</span>[Ask Aditya for 1–2 sentences — why this project, what they do.]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEYSA -->
+      <div class="tcard" tabindex="0">
+        <div class="tcard-inner">
+          <div class="tface tfront">
+            <div class="tphoto">
+              <div class="fallback"><i class="mdi mdi-book-open-variant" style="font-size:32px;"></i></div>
+              <img src="assets/images/team/education-lead.jpg" alt="Neysa Yagnik" onerror="this.remove()"/>
+            </div>
+            <div class="tfront-body">
+              <div class="tname">Neysa Yagnik</div>
+              <div class="trole">Educational Content Lead</div>
+              <div class="tflip-hint"><i class="mdi mdi-rotate-3d"></i> Hover to flip</div>
+            </div>
+          </div>
+          <div class="tface tback">
+            <div class="tback-head"><div class="tset">Educational Content Lead</div><h4>Neysa Yagnik</h4></div>
+            <div class="tback-body">
+              <p class="tbio">Educational Content Lead. Turns mechanics into lessons — guides and explanations teachers can use.</p>
+              <p class="tnote"><span class="tnote-label">In her words</span>I’m a senior at Independence High School interested in healthcare, research, &amp; education. In the future, I hope to work in pediatrics and explore how new innovations can improve healthcare for children.<br/><br/>I joined ModAnatomy because I liked the focus on creating educational anatomy tools, and wanted to learn how to turn that interest into something that can make anatomy more engaging and accessible for students!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo"><img src="assets/images/logo-full.png" alt="Project ModAnatomy"/></div>
+    <div class="footer-sub">Hands-on anatomy education for every classroom.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="model.html">The Model</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Project ModAnatomy. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js" defer></script>
+<script>
+  // tap / keyboard flip for touch devices
+  document.querySelectorAll('.tcard').forEach(c => {
+    c.addEventListener('click', () => c.classList.toggle('flipped'));
+    c.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.classList.toggle('flipped'); }
+    });
+  });
+</script>
+</body>
+</html>

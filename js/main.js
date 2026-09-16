@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ─── NAV SCROLL EFFECT ───
+  // ─── NAV SCROLL EFFECT (rAF-throttled, passive) ───
   const nav = document.querySelector('nav');
-  let lastScrollTop = 0;
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > 50) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  }, false);
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      nav.classList.toggle('scrolled', scrollTop > 50);
+      ticking = false;
+    });
+  }, { passive: true });
 
   // ─── SCROLL-TRIGGERED ANIMATIONS ───
   const observerOptions = {
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── STAGGERED ANIMATIONS FOR GRID ITEMS ───
   const animateGridItems = () => {
     // Principles grid
-    document.querySelectorAll('.principle').forEach((el, index) => {
+    document.querySelectorAll('.principle, .team-card').forEach((el, index) => {
       el.classList.add('scroll-scale-in');
       el.classList.add(`scroll-scale-in-${Math.min(index, 2)}`);
       observer.observe(el);
@@ -261,29 +261,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ─── PAGE TRANSITION FADE ───
-  document.querySelectorAll('a[href$=".html"]').forEach(link => {
-    if (!link.classList.contains('nav-cta') && link.getAttribute('target') !== '_blank') {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href && !href.startsWith('http')) {
-          e.preventDefault();
-          document.body.style.opacity = '0';
-          document.body.style.transition = 'opacity 0.3s ease-out';
-          setTimeout(() => {
-            window.location.href = href;
-          }, 300);
-        }
-      });
-    }
-  });
+  // ─── PAGE WIPE TRANSITION ───
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ─── FADE IN ON PAGE LOAD ───
-  window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease-in';
-    setTimeout(() => {
-      document.body.style.opacity = '1';
-    }, 50);
-  });
+  if (!reduceMotion) {
+    // Overlay ships in the HTML so it covers first paint; fall back to creating it.
+    let wipe = document.querySelector('.wipe');
+    if (!wipe) {
+      wipe = document.createElement('div');
+      wipe.className = 'wipe is-covering';
+      wipe.setAttribute('aria-hidden', 'true');
+      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><div class="wipe-logo">Mod<em>Anatomy</em></div></div>';
+      document.body.appendChild(wipe);
+    }
+
+    // Reveal on first paint
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => wipe.classList.remove('is-covering'));
+    });
+
+    // Re-reveal when returning via back/forward cache
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) wipe.classList.remove('is-covering');
+    });
+
+    // Cover, then navigate
+    document.querySelectorAll('a[href$=".html"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('http') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
+        const current = window.location.pathname.split('/').pop() || 'index.html';
+        if (href === current) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        e.preventDefault();
+        wipe.classList.add('is-covering');
+        setTimeout(() => { window.location.href = href; }, 750);
+      });
+    });
+  }
 });

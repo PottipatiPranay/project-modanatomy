@@ -443,3 +443,41 @@ footer:hover .footer-logo img {
   footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
   .footer-links { flex-wrap: wrap; justify-content: center; }
 }
+
+/* ── PAGE WIPE TRANSITION ── */
+.wipe { position: fixed; inset: 0; z-index: 2000; pointer-events: none; }
+.wipe.is-covering { pointer-events: all; }
+.wipe-panel {
+  position: absolute; inset: 0;
+  transform: translate3d(0, 102%, 0);
+  backface-visibility: hidden;
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+.wipe-brick { background: var(--brick); }
+.wipe-deep {
+  background: var(--deep);
+  display: flex; align-items: center; justify-content: center;
+}
+.wipe.is-covering .wipe-panel { transform: translate3d(0, 0, 0); }
+.wipe.is-covering .wipe-brick { transition-delay: 0s; }
+.wipe.is-covering .wipe-deep { transition-delay: 0.08s; }
+.wipe:not(.is-covering) .wipe-deep { transition-delay: 0s; }
+.wipe:not(.is-covering) .wipe-brick { transition-delay: 0.08s; }
+.wipe-logo {
+  font-family: 'Fraunces', serif; font-weight: 900;
+  font-size: clamp(2rem, 6vw, 4rem); letter-spacing: -0.02em;
+  color: var(--cream); opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.wipe-logo em { font-style: italic; font-weight: 300; color: var(--blush); }
+.wipe.is-covering .wipe-logo { opacity: 1; transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) {
+  .wipe-panel { transition: none; }
+}
+
+/* ── PERF: skip rendering off-screen sections on weak devices ── */
+.content-block, .join-band, .vision-teaser, .why-section, .intro-band {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
