@@ -355,6 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (finePointer && !noMotion) {
+    // Only swap cursors once the artwork is confirmed loaded —
+    // otherwise a missing image would leave no cursor at all.
+    const probe = new Image();
+    probe.onload = () => {
     document.body.classList.add('custom-cursor');
     const cur = document.createElement('div');
     cur.className = 'cursor';
@@ -389,6 +393,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mouseover', (e) => {
       cur.classList.toggle('is-hover', !!e.target.closest('a, button, .tcard, select, label'));
     });
+    };
+    probe.src = 'assets/images/cursor.svg';
   }
 
   // ─── KONAMI FLIP WAVE (team page) ───
