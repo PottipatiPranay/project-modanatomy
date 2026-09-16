@@ -357,6 +357,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (finePointer && !noMotion) {
     // Only swap cursors once the artwork is confirmed loaded —
     // otherwise a missing image would leave no cursor at all.
+    const SRC = { arrow: 'assets/images/cursor.svg', hand: 'assets/images/cursor-hand.svg' };
+    const OFF = { arrow: [4, 0], hand: [9, 1] };
+    let curState = 'arrow', overText = false, handReady = false;
+    const handPre = new Image();
+    handPre.onload = () => { handReady = true; };
+    handPre.src = SRC.hand;
     const probe = new Image();
     probe.onload = () => {
     document.body.classList.add('custom-cursor');
@@ -365,6 +371,16 @@ document.addEventListener('DOMContentLoaded', () => {
     cur.setAttribute('aria-hidden', 'true');
     cur.innerHTML = '<img src="assets/images/cursor.svg" alt=""/>';
     document.body.appendChild(cur);
+    const curImg = cur.querySelector('img');
+    let ox = 4, oy = 0;
+
+    const setState = (s) => {
+      if (s === 'hand' && !handReady) s = 'arrow';
+      if (s === curState) return;
+      curState = s;
+      curImg.src = SRC[s];
+      ox = OFF[s][0]; oy = OFF[s][1];
+    };
 
     let cx = -100, cy = -100, tx = -100, ty = -100, raf = null;
     const render = () => {
@@ -379,9 +395,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(render); };
     document.addEventListener('mousemove', (e) => {
-      tx = e.clientX - 4;
-      ty = e.clientY;
-      cur.classList.add('is-visible');
+      tx = e.clientX - ox;
+      ty = e.clientY - oy;
+      if (!overText) cur.classList.add('is-visible');
       kick();
     });
     const hideCursor = () => cur.classList.remove('is-visible');
@@ -391,10 +407,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousedown', () => cur.classList.add('is-down'));
     document.addEventListener('mouseup', () => cur.classList.remove('is-down'));
     document.addEventListener('mouseover', (e) => {
-      cur.classList.toggle('is-hover', !!e.target.closest('a, button, .tcard, select, label'));
+      overText = !!e.target.closest('input, textarea');
+      const hot = !overText && !!e.target.closest('a, button, .tcard, select, label');
+      setState(hot ? 'hand' : 'arrow');
+      cur.classList.toggle('is-hover', hot);
+      cur.classList.toggle('is-visible', !overText);
     });
     };
-    probe.src = 'assets/images/cursor.svg';
+    probe.src = SRC.arrow;
   }
 
   // ─── KONAMI FLIP WAVE (team page) ───
