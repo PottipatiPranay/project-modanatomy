@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cur = document.createElement('div');
     cur.className = 'cursor';
     cur.setAttribute('aria-hidden', 'true');
-    cur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5.5 2.5 19.5 12l-7.2 1.6-2.6 7z" fill="#3D0A08" stroke="#FAF0EC" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    cur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6.2 3.2c-.9 0-1.5 1-1.1 1.9l4.7 11.2c.4 1 1.7 1.1 2.3.2l1.2-1.5 2.3 4.9c.4.8 1.5.8 1.9 0l2.4-6.3c.3-.8-.2-1.6-1-1.8L7.4 3.5c-.4-.2-.8-.3-1.2-.3z" fill="#3D0A08" stroke="#FAF0EC" stroke-width="2.4" stroke-linejoin="round"/></svg>';
     document.body.appendChild(cur);
 
     let cx = -100, cy = -100, tx = -100, ty = -100, raf = null;
@@ -375,8 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(render); };
     document.addEventListener('mousemove', (e) => {
-      tx = e.clientX - 7;
-      ty = e.clientY - 3;
+      tx = e.clientX - 8;
+      ty = e.clientY - 4;
       cur.classList.add('is-visible');
       kick();
     });
