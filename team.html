@@ -47,7 +47,7 @@
     /* FRONT */
     .tfront { background: var(--warm); }
     .tphoto {
-      height: 250px; position: relative; flex-shrink: 0;
+      flex: 1 0 auto; min-height: 250px; position: relative;
       background: linear-gradient(160deg, var(--blush), var(--warm));
       display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
@@ -57,7 +57,7 @@
       display: flex; align-items: center; justify-content: center;
     }
     .tphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-    .tfront-body { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .tfront-body { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 6px; flex: none; }
     .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
     .trole {
       align-self: flex-start; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
@@ -65,7 +65,7 @@
       padding: 4px 10px; border-radius: 20px;
     }
     .tflip-hint {
-      margin-top: auto; padding-top: 10px;
+      margin-top: 12px; padding-top: 0;
       font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
       display: flex; align-items: center; gap: 6px;
     }
@@ -90,7 +90,7 @@
     @media (max-width: 600px) {
       .tgrid { grid-template-columns: 1fr; gap: 16px; }
       .tface { min-height: 440px; }
-      .tphoto { height: 220px; }
+      .tphoto { min-height: 220px; }
       .tback-head h2 { font-size: 1.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
