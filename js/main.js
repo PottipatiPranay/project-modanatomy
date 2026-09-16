@@ -305,14 +305,14 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => {
         wipe.classList.remove('is-covering');
         document.body.classList.remove('wipe-covering');
-        setTimeout(() => wipe.classList.remove('wipe-slow'), 2000);
+        setTimeout(() => wipe.classList.remove('wipe-slow'), 1500);
       });
     };
     document.body.classList.add('wipe-covering');
     if (firstVisit) {
       try { sessionStorage.setItem('moda-seen', '1'); } catch (err) {}
       wipe.classList.add('wipe-slow');
-      setTimeout(reveal, 450);
+      setTimeout(reveal, 200);
     } else {
       reveal();
     }

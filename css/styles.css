@@ -472,7 +472,7 @@ footer:hover .footer-logo img {
 }
 .wipe.is-covering .wipe-logo-img { opacity: 0.92; transition-delay: 0.3s; }
 /* slow first-load reveal so the curtain registers */
-.wipe-slow .wipe-panel { transition-duration: 1.6s; }
+.wipe-slow .wipe-panel { transition-duration: 1.2s; }
 .wipe-brick, .wipe-deep { border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; }
 /* content fades beneath the curtain for a softer handoff */
 .page-content { transition: opacity 0.45s ease; }
