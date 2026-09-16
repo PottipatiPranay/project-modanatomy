@@ -298,16 +298,16 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(wipe);
     }
 
-    // Slow first-load reveal so the curtain registers
+    // Long first-load reveal: hold the logo, then lift slowly
     document.body.classList.add('wipe-covering');
     wipe.classList.add('wipe-slow');
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       requestAnimationFrame(() => {
         wipe.classList.remove('is-covering');
         document.body.classList.remove('wipe-covering');
-        setTimeout(() => wipe.classList.remove('wipe-slow'), 1500);
+        setTimeout(() => wipe.classList.remove('wipe-slow'), 2000);
       });
-    });
+    }, 450);
 
     // Re-reveal when returning via back/forward cache
     window.addEventListener('pageshow', (e) => {
@@ -317,16 +317,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Same-page links smooth-scroll instead of reloading
+    // Short curtain on navigation
     document.querySelectorAll('a[href$=".html"]').forEach(link => {
       link.addEventListener('click', (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         const href = link.getAttribute('href');
         if (!href || href.startsWith('http') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
         const current = window.location.pathname.split('/').pop() || 'index.html';
         if (href === current) {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
         }
+        e.preventDefault();
+        wipe.classList.add('is-covering');
+        document.body.classList.add('wipe-covering');
+        setTimeout(() => { window.location.href = href; }, 500);
       });
     });
   } else {
