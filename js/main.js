@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // First visit: hold the logo, then lift slowly. Later visits: quick lift.
     let firstVisit = true;
-    try { firstVisit = !sessionStorage.getItem('moda-seen'); } catch (err) {}
+    try { firstVisit = !localStorage.getItem('moda-seen'); } catch (err) {}
     const reveal = () => {
       requestAnimationFrame(() => {
         wipe.classList.remove('is-covering');
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     document.body.classList.add('wipe-covering');
     if (firstVisit) {
-      try { sessionStorage.setItem('moda-seen', '1'); } catch (err) {}
+      try { localStorage.setItem('moda-seen', '1'); } catch (err) {}
       wipe.classList.add('wipe-slow');
       setTimeout(reveal, 200);
     } else {
