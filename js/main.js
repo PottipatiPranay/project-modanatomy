@@ -375,8 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(render); };
     document.addEventListener('mousemove', (e) => {
-      tx = e.clientX - 5;
-      ty = e.clientY - 1;
+      tx = e.clientX - 4;
+      ty = e.clientY;
       cur.classList.add('is-visible');
       kick();
     });
