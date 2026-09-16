@@ -53,9 +53,9 @@
       color: var(--cream);
     }
     .spec-item:last-child { border-right: none; }
-    .spec-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.35; margin-bottom: 10px; }
+    .spec-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; margin-bottom: 10px; }
     .spec-value { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--blush); line-height: 1; margin-bottom: 6px; }
-    .spec-desc { font-size: 0.82rem; opacity: 0.5; line-height: 1.5; }
+    .spec-desc { font-size: 0.82rem; opacity: 0.8; line-height: 1.5; }
 
     .how-section { padding: 88px 72px; }
     .steps { display: flex; flex-direction: column; margin-top: 52px; }
@@ -67,7 +67,7 @@
     .step:last-child { border-bottom: none; }
     .step-n {
       font-family: 'Fraunces', serif; font-size: 2.8rem;
-      font-weight: 900; color: var(--brick); opacity: 0.22; line-height: 1;
+      font-weight: 900; color: var(--brick); opacity: 0.4; line-height: 1;
     }
     .step h3 { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
     .step p { font-size: 0.9rem; line-height: 1.8; color: var(--muted); }
@@ -98,7 +98,7 @@
     .roadmap-col { background: var(--cream); padding: 40px 32px; }
     .roadmap-phase {
       font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--brick);
+      text-transform: uppercase; color: var(--brick-deep);
       margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
     }
     .roadmap-col h3 {
@@ -110,7 +110,7 @@
       font-size: 0.875rem; color: var(--muted);
       padding-left: 16px; position: relative; line-height: 1.5;
     }
-    .roadmap-col li::before { content: '→'; position: absolute; left: 0; color: var(--brick); font-size: 0.75rem; }
+    .roadmap-col li::before { content: '→'; position: absolute; left: 0; color: var(--brick-deep); font-size: 0.75rem; }
 
     /* ── EKG VISUALIZATION ── */
     .ekg-section {
@@ -142,12 +142,12 @@
       width: 100%;
       height: auto;
     }
-    .ekg-info h3 {
+    .ekg-info h2 {
       font-family: 'Fraunces', serif;
       font-size: 1.8rem; font-weight: 700;
       color: var(--ink); margin-bottom: 20px;
     }
-    .ekg-info h3 em {
+    .ekg-info h2 em {
       color: var(--brick); font-style: italic; font-weight: 300;
     }
     .ekg-info p {
@@ -251,7 +251,7 @@
       </div>
 
       <div class="ekg-info">
-        <h3>The Electrical <em>Signature</em></h3>
+        <h2>The Electrical <em>Signature</em></h2>
         <p>As your model's piston pumps, it's performing the same mechanical work that the heart's electrical system coordinates. This EKG waveform shows what that electrical signal looks like in a real heart.</p>
         <p>Each heartbeat follows the same pattern: atrial activation (P wave), ventricular activation (QRS complex), and ventricular recovery (T wave).</p>
         

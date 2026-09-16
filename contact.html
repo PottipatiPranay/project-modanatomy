@@ -39,7 +39,7 @@
     .contact-icon :is(i, svg) { color: var(--blush); }
     .contact-item-text span {
       display: block; font-size: 0.68rem; letter-spacing: 0.1em;
-      text-transform: uppercase; opacity: 0.35; margin-bottom: 4px;
+      text-transform: uppercase; opacity: 0.6; margin-bottom: 4px;
     }
     .contact-item-text p { font-size: 0.875rem; opacity: 0.8; line-height: 1.5; }
 
@@ -66,7 +66,7 @@
     .form-group textarea:focus { border-color: var(--brick); }
     .form-group textarea { resize: vertical; min-height: 120px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-note { font-size: 0.78rem; color: var(--muted); margin-top: 10px; line-height: 1.5; opacity: 0.7; }
+    .form-note { font-size: 0.78rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }
     
     .success-modal-overlay {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4);
@@ -102,13 +102,13 @@
     }
     
     .success-button {
-      background: var(--brick); color: white;
+      background: var(--brick-deep); color: white;
       border: none; padding: 12px 32px; border-radius: 6px;
       font-weight: 600; font-size: 0.9rem; cursor: pointer;
       transition: background 0.3s; letter-spacing: 0.05em;
     }
     
-    .success-button:hover { background: #b84c38; }
+    .success-button:hover { background: #8E312B; }
     
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -203,25 +203,25 @@
       <form id="my-form">
         <div class="form-row">
           <div class="form-group">
-            <label>First Name</label>
-            <input type="text" name="fname" placeholder="Jane" data-fs-field required/>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Jane" data-fs-field required/>
             <span data-fs-error="fname" style="display:none; color: #c00; font-size: 0.8rem; margin-top: 4px; display: block;"></span>
           </div>
           <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" name="lname" placeholder="Smith" data-fs-field/>
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Smith" data-fs-field/>
           </div>
         </div>
         
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="jane@school.org" data-fs-field required/>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jane@school.org" data-fs-field required/>
           <span data-fs-error="email" style="display:none; color: #c00; font-size: 0.8rem; margin-top: 4px; display: block;"></span>
         </div>
         
         <div class="form-group">
-          <label>I am a...</label>
-          <select name="role" data-fs-field>
+            <label for="role-select">I am a...</label>
+            <select id="role-select" name="role" data-fs-field>
             <option value="">Select your role</option>
             <option>Teacher / Educator</option>
             <option>School Administrator</option>
@@ -233,8 +233,8 @@
         </div>
         
         <div class="form-group">
-          <label>Message</label>
-          <textarea name="message" placeholder="Tell us about your interest, your school, or how you'd like to get involved..." data-fs-field required></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your interest, your school, or how you'd like to get involved..." data-fs-field required></textarea>
           <span data-fs-error="message" style="display:none; color: #c00; font-size: 0.8rem; margin-top: 4px; display: block;"></span>
         </div>
         

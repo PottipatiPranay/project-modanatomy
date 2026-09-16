@@ -3,6 +3,7 @@
   --ink:    #6C1B15;
   --deep:   #3D0A08;
   --brick:  #DC5147;
+  --brick-deep: #A83A32;
   --blush:  #F2C4C0;
   --cream:  #FAF0EC;
   --warm:   #FDF6F3;
@@ -42,7 +43,7 @@ nav.scrolled {
   text-decoration: none; color: var(--ink);
   font-size: 0.82rem; font-weight: 500;
   letter-spacing: 0.05em; text-transform: uppercase;
-  opacity: 0.5; transition: opacity 0.3s ease, color 0.3s ease;
+  opacity: 0.75; transition: opacity 0.3s ease, color 0.3s ease;
   position: relative;
 }
 .nav-links a::after {
@@ -133,7 +134,7 @@ nav.scrolled {
 /* ── SECTION COMMON ── */
 .section-label {
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--brick); margin-bottom: 14px;
+  text-transform: uppercase; color: var(--brick-deep); margin-bottom: 14px;
 }
 .section-title {
   font-family: 'Fraunces', serif;
@@ -242,15 +243,15 @@ nav.scrolled {
 .principle:hover::before { opacity: 1; }
 .principle-num {
   font-family: 'Fraunces', serif; font-size: 2.2rem;
-  font-weight: 900; color: var(--brick); opacity: 0.2; line-height: 1; margin-bottom: 14px;
+  font-weight: 900; color: var(--brick); opacity: 0.4; line-height: 1; margin-bottom: 14px;
   transition: opacity 0.3s ease;
 }
-.principle:hover .principle-num { opacity: 0.35; }
-.principle h4 { 
+.principle:hover .principle-num { opacity: 0.55; }
+.principle h3 { 
   font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 8px;
   transition: color 0.3s ease;
 }
-.principle:hover h4 { color: var(--brick); }
+.principle:hover h3 { color: var(--brick); }
 .principle p { font-size: 0.85rem; line-height: 1.7; color: var(--muted); }
 
 /* ── FOOTER ── */
@@ -268,10 +269,10 @@ footer:hover .footer-logo img {
   transform: scale(1.08);
   opacity: 1;
 }
-.footer-sub { font-size: 0.75rem; opacity: 0.28; margin-top: 6px; }
+.footer-sub { font-size: 0.75rem; opacity: 0.55; margin-top: 6px; }
 .footer-links { display: flex; gap: 28px; list-style: none; }
 .footer-links a {
-  text-decoration: none; color: rgba(250,240,236,0.35);
+  text-decoration: none; color: rgba(250,240,236,0.6);
   font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
   transition: all 0.3s ease;
   position: relative;
@@ -292,7 +293,7 @@ footer:hover .footer-logo img {
 .footer-links a:hover::before {
   width: 100%;
 }
-.footer-copy { font-size: 0.72rem; opacity: 0.22; }
+.footer-copy { font-size: 0.72rem; opacity: 0.55; }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -386,8 +387,8 @@ footer:hover .footer-logo img {
 .pillar:hover :is(i, svg) { 
   transform: scale(1.15);
 }
-.pillar-text h4 { transition: color 0.3s ease; }
-.pillar:hover .pillar-text h4 { color: var(--brick); }
+.pillar-text h3 { transition: color 0.3s ease; }
+.pillar:hover .pillar-text h3 { color: var(--brick); }
 
 .organ-tile {
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -451,7 +452,7 @@ footer:hover .footer-logo img {
   position: absolute; inset: 0;
   transform: translate3d(0, 102%, 0);
   backface-visibility: hidden;
-  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform;
 }
 .wipe-brick { background: var(--brick); }
@@ -471,7 +472,7 @@ footer:hover .footer-logo img {
   transition: opacity 0.3s ease;
 }
 .wipe-logo em { font-style: italic; font-weight: 300; color: var(--blush); }
-.wipe.is-covering .wipe-logo { opacity: 1; transition-delay: 0.3s; }
+.wipe.is-covering .wipe-logo { opacity: 1; transition-delay: 0.15s; }
 .wipe-brick, .wipe-deep { border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; }
 /* content fades beneath the curtain for a softer handoff */
 .page-content { transition: opacity 0.45s ease; }
@@ -540,7 +541,7 @@ svg.mdi {
     padding: 14px 4px; border-bottom: 1px solid var(--border);
   }
   .mobile-menu a:last-child { border-bottom: none; }
-  .mobile-menu a.active { color: var(--brick); }
+  .mobile-menu a.active { color: var(--brick-deep); }
   .mobile-menu .mobile-cta {
     background: var(--ink); color: var(--cream);
     text-align: center; border-radius: 4px; margin-top: 10px;

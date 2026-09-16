@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         wipe.classList.add('is-covering');
         document.body.classList.add('wipe-covering');
-        setTimeout(() => { window.location.href = href; }, 750);
+        setTimeout(() => { window.location.href = href; }, 520);
       });
     });
   }

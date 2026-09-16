@@ -60,7 +60,7 @@
     .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
     .trole {
       align-self: flex-start; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--brick); background: rgba(220,81,71,0.1); border: 1px solid rgba(220,81,71,0.25);
+      color: var(--brick-deep); background: rgba(220,81,71,0.1); border: 1px solid rgba(220,81,71,0.25);
       padding: 4px 10px; border-radius: 20px;
     }
     .tflip-hint {
@@ -72,7 +72,7 @@
     .tback { background: var(--deep); color: var(--cream); transform: rotateY(180deg); }
     .tback-head { padding: 16px 20px 12px; border-bottom: 1px solid rgba(242,196,192,0.15); }
     .tback-head .tset { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blush); }
-    .tback-head h4 { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 900; margin-top: 6px; color: var(--cream); letter-spacing: -0.02em; line-height: 1.15; }
+    .tback-head h3 { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 900; margin-top: 6px; color: var(--cream); letter-spacing: -0.02em; line-height: 1.15; }
     .tback-body { padding: 14px 20px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
     .tbio { font-size: 0.8rem; line-height: 1.6; opacity: 0.8; }
     .tnote {
@@ -82,7 +82,7 @@
     }
     .tnote .tnote-label {
       display: block; font-style: normal; font-size: 0.62rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px;
+      letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; margin-bottom: 4px;
     }
 
     @media (max-width: 1100px) { .tgrid { grid-template-columns: repeat(2, 1fr); } }
@@ -90,7 +90,7 @@
       .tgrid { grid-template-columns: 1fr; gap: 16px; }
       .tface { min-height: 440px; }
       .tphoto { height: 220px; }
-      .tback-head h4 { font-size: 1.2rem; }
+      .tback-head h3 { font-size: 1.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .tcard-inner { transition: none; }
@@ -140,7 +140,7 @@
           <div class="tface tfront">
             <div class="tphoto">
               <div class="fallback"><svg class="mdi mdi-account-tie" style="font-size:32px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C14.21 3 16 4.79 16 7S14.21 11 12 11 8 9.21 8 7 9.79 3 12 3M16 13.54C16 14.6 15.72 17.07 13.81 19.83L13 15L13.94 13.12C13.32 13.05 12.67 13 12 13S10.68 13.05 10.06 13.12L11 15L10.19 19.83C8.28 17.07 8 14.6 8 13.54C5.61 14.24 4 15.5 4 17V21H20V17C20 15.5 18.4 14.24 16 13.54Z"/></svg></div>
-              <img src="assets/images/team/director.jpg" alt="Pranay Pottipati" onerror="this.remove()"/>
+               <!-- photo forthcoming: assets/images/team/director.jpg -->
             </div>
             <div class="tfront-body">
               <div class="tname">Pranay Pottipati</div>
@@ -149,7 +149,7 @@
             </div>
           </div>
           <div class="tface tback">
-            <div class="tback-head"><div class="tset">Director</div><h4>Pranay Pottipati</h4></div>
+            <div class="tback-head"><div class="tset">Director</div><h3>Pranay Pottipati</h3></div>
             <div class="tback-body">
               <p class="tbio">Director. Sets the vision for Project ModAnatomy — guiding design priorities, partnerships, and the rental-library goal.</p>
               <p class="tnote"><span class="tnote-label">In their words</span>[Ask Pranay for 1–2 sentences — why this project, what they do.]</p>
@@ -164,7 +164,7 @@
           <div class="tface tfront">
             <div class="tphoto">
               <div class="fallback"><svg class="mdi mdi-cog" style="font-size:32px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/></svg></div>
-              <img src="assets/images/team/engineer-lead.jpg" alt="Akhil Tumati" onerror="this.remove()"/>
+              <img src="assets/images/team/engineer-lead.webp" alt="Akhil Tumati" onerror="this.remove()"/>
             </div>
             <div class="tfront-body">
               <div class="tname">Akhil Tumati</div>
@@ -173,7 +173,7 @@
             </div>
           </div>
           <div class="tface tback">
-            <div class="tback-head"><div class="tset">Co-Director / Engineer Lead</div><h4>Akhil Tumati</h4></div>
+            <div class="tback-head"><div class="tset">Co-Director / Engineer Lead</div><h3>Akhil Tumati</h3></div>
             <div class="tback-body">
               <p class="tbio">Co-Director / Engineer Lead. Leads prototyping — pistons, sealing, 3D-printed chambers — built classroom-ready.</p>
               <p class="tnote"><span class="tnote-label">In their words</span>[Ask Akhil for 1–2 sentences — why this project, what they do.]</p>
@@ -188,7 +188,7 @@
           <div class="tface tfront">
             <div class="tphoto">
               <div class="fallback"><svg class="mdi mdi-share-variant" style="font-size:32px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z"/></svg></div>
-              <img src="assets/images/team/social-lead.jpg" alt="Aditya Ranjithkumar" onerror="this.remove()"/>
+               <!-- photo forthcoming: assets/images/team/social-lead.jpg -->
             </div>
             <div class="tfront-body">
               <div class="tname">Aditya Ranjithkumar</div>
@@ -197,7 +197,7 @@
             </div>
           </div>
           <div class="tface tback">
-            <div class="tback-head"><div class="tset">Social Media Lead</div><h4>Aditya Ranjithkumar</h4></div>
+            <div class="tback-head"><div class="tset">Social Media Lead</div><h3>Aditya Ranjithkumar</h3></div>
             <div class="tback-body">
               <p class="tbio">Social Media Lead. Shares the build — prototypes, classroom moments, and progress updates.</p>
               <p class="tnote"><span class="tnote-label">In their words</span>[Ask Aditya for 1–2 sentences — why this project, what they do.]</p>
@@ -212,7 +212,7 @@
           <div class="tface tfront">
             <div class="tphoto">
               <div class="fallback"><svg class="mdi mdi-book-open-variant" style="font-size:32px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5C10.65 20.65 8.2 20 6.5 20C4.85 20 3.15 20.3 1.75 21.05C1.65 21.1 1.6 21.1 1.5 21.1C1.25 21.1 1 20.85 1 20.6V6C1.6 5.55 2.25 5.25 3 5C4.11 4.65 5.33 4.5 6.5 4.5C8.45 4.5 10.55 4.9 12 6C13.45 4.9 15.55 4.5 17.5 4.5C18.67 4.5 19.89 4.65 21 5C21.75 5.25 22.4 5.55 23 6V20.6C23 20.85 22.75 21.1 22.5 21.1C22.4 21.1 22.35 21.1 22.25 21.05C20.85 20.3 19.15 20 17.5 20C15.8 20 13.35 20.65 12 21.5M12 8V19.5C13.35 18.65 15.8 18 17.5 18C18.7 18 19.9 18.15 21 18.5V7C19.9 6.65 18.7 6.5 17.5 6.5C15.8 6.5 13.35 7.15 12 8Z"/></svg></div>
-              <img src="assets/images/team/education-lead.jpg" alt="Neysa Yagnik" onerror="this.remove()"/>
+              <img src="assets/images/team/education-lead.webp" alt="Neysa Yagnik" onerror="this.remove()"/>
             </div>
             <div class="tfront-body">
               <div class="tname">Neysa Yagnik</div>
@@ -221,7 +221,7 @@
             </div>
           </div>
           <div class="tface tback">
-            <div class="tback-head"><div class="tset">Educational Content Lead</div><h4>Neysa Yagnik</h4></div>
+            <div class="tback-head"><div class="tset">Educational Content Lead</div><h3>Neysa Yagnik</h3></div>
             <div class="tback-body">
               <p class="tbio">Educational Content Lead. Turns mechanics into lessons — guides and explanations teachers can use.</p>
               <p class="tnote"><span class="tnote-label">In her words</span>I’m a senior at Independence High School interested in healthcare, research, &amp; education. In the future, I hope to work in pediatrics and explore how new innovations can improve healthcare for children.<br/><br/>I joined ModAnatomy because I liked the focus on creating educational anatomy tools, and wanted to learn how to turn that interest into something that can make anatomy more engaging and accessible for students!</p>

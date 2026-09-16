@@ -28,7 +28,7 @@
     .hero-tag {
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--brick); margin-bottom: 28px;
+      text-transform: uppercase; color: var(--brick-deep); margin-bottom: 28px;
     }
     .hero-tag-dot {
       width: 6px; height: 6px; background: var(--brick); border-radius: 50%;
@@ -80,7 +80,7 @@
     }
     .organ-status { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
     .status-active { color: var(--blush); }
-    .status-planned { color: rgba(255,255,255,0.28); }
+    .status-planned { color: rgba(255,255,255,0.6); }
 
     .intro-band {
       background: var(--deep); color: var(--cream);
@@ -108,11 +108,11 @@
     .pillar:last-child  { border-radius: 0 0 8px 8px; }
     .pillar:hover { border-left-color: var(--brick); }
     .pillar :is(i, svg) { color: var(--brick); flex-shrink: 0; margin-top: 2px; }
-    .pillar-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .pillar-text h3 { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
     .pillar-text p  { font-size: 0.875rem; line-height: 1.7; color: var(--muted); }
 
     .vision-teaser {
-      background: var(--brick); color: white;
+      background: #A93D34; color: white;
       padding: 80px 72px;
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
     }
@@ -121,8 +121,8 @@
       font-size: clamp(2.2rem, 3.5vw, 3.2rem);
       font-weight: 900; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 20px;
     }
-    .vision-teaser h2 em { font-style: italic; font-weight: 300; opacity: 0.7; }
-    .vision-teaser p { font-size: 0.975rem; line-height: 1.8; opacity: 0.8; }
+    .vision-teaser h2 em { font-style: italic; font-weight: 300; opacity: 0.9; }
+    .vision-teaser p { font-size: 0.975rem; line-height: 1.8; opacity: 0.9; }
     .organs-preview { display: flex; flex-direction: column; gap: 12px; }
     .organ-row {
       display: flex; align-items: center; gap: 16px;
@@ -132,7 +132,7 @@
     .organ-row :is(i, svg) { flex-shrink: 0; opacity: 0.75; }
     .organ-row-info { flex: 1; }
     .organ-row-name { font-size: 0.9rem; font-weight: 600; }
-    .organ-row-desc { font-size: 0.78rem; opacity: 0.55; margin-top: 2px; }
+    .organ-row-desc { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
     .organ-row-badge {
       font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase; padding: 3px 9px; border-radius: 20px;
@@ -237,19 +237,19 @@
     <div class="design-pillars">
       <div class="pillar">
         <svg class="mdi mdi-hand-front-right" style="font-size:20px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.75 8C19.06 8 18.5 8.56 18.5 9.25V15H18C16.35 15 15 16.35 15 18H14C14 15.96 15.53 14.28 17.5 14.03V3.25C17.5 2.56 16.94 2 16.25 2C15.56 2 15 2.56 15 3.25V11H14V1.25C14 .56 13.44 0 12.75 0S11.5 .56 11.5 1.25V11H10.5V2.75C10.5 2.06 9.94 1.5 9.25 1.5S8 2.06 8 2.75V12H7V5.75C7 5.06 6.44 4.5 5.75 4.5S4.5 5.06 4.5 5.75V15.75C4.5 20.31 8.19 24 12.75 24S21 20.31 21 15.75V9.25C21 8.56 20.44 8 19.75 8Z"/></svg>
-        <div class="pillar-text"><h4>Hands-on by design</h4><p>Students physically operate each model rather than passively observing. The heart model uses manual pistons — you feel the resistance, the suction, the pressure.</p></div>
+        <div class="pillar-text"><h3>Hands-on by design</h3><p>Students physically operate each model rather than passively observing. The heart model uses manual pistons — you feel the resistance, the suction, the pressure.</p></div>
       </div>
       <div class="pillar">
         <svg class="mdi mdi-eye" style="font-size:20px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/></svg>
-        <div class="pillar-text"><h4>Visually transparent</h4><p>Colored water flows through clear tubing. One-way valves are visible. Nothing is hidden. The goal is that the mechanics teach the biology.</p></div>
+        <div class="pillar-text"><h3>Visually transparent</h3><p>Colored water flows through clear tubing. One-way valves are visible. Nothing is hidden. The goal is that the mechanics teach the biology.</p></div>
       </div>
       <div class="pillar">
         <svg class="mdi mdi-label" style="font-size:20px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.63,5.84C17.27,5.33 16.67,5 16,5H5A2,2 0 0,0 3,7V17A2,2 0 0,0 5,19H16C16.67,19 17.27,18.66 17.63,18.15L22,12L17.63,5.84Z"/></svg>
-        <div class="pillar-text"><h4>Radically affordable</h4><p>By renting model sets rather than selling them, schools pay a fraction of what commercial anatomy tools cost — and never worry about replacement parts or upkeep.</p></div>
+        <div class="pillar-text"><h3>Radically affordable</h3><p>By renting model sets rather than selling them, schools pay a fraction of what commercial anatomy tools cost — and never worry about replacement parts or upkeep.</p></div>
       </div>
       <div class="pillar">
         <svg class="mdi mdi-school" style="font-size:20px;" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/></svg>
-        <div class="pillar-text"><h4>Built for the classroom</h4><p>Designed specifically for under-resourced middle and high schools. Our rental model means schools get access without the burden of ownership.</p></div>
+        <div class="pillar-text"><h3>Built for the classroom</h3><p>Designed specifically for under-resourced middle and high schools. Our rental model means schools get access without the burden of ownership.</p></div>
       </div>
     </div>
   </div>
