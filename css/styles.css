@@ -552,7 +552,7 @@ svg.mdi {
 .cursor { display: none; }
 @media (hover: hover) and (pointer: fine) {
   body.custom-cursor,
-  body.custom-cursor *:not(input):not(textarea) { cursor: none !important; }
+  body.custom-cursor * { cursor: none !important; }
   body.custom-cursor input,
   body.custom-cursor textarea { cursor: auto !important; }
   .cursor {
