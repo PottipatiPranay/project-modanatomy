@@ -357,8 +357,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (finePointer && !noMotion) {
     // Only swap cursors once the artwork is confirmed loaded —
     // otherwise a missing image would leave no cursor at all.
-    const SRC = { arrow: 'assets/images/cursor.svg?v=3', hand: 'assets/images/cursor-hand.svg?v=2' };
-    const OFF = { arrow: [4, 0], hand: [9, 1] };
+    const SRC = { arrow: 'assets/images/cursor.svg?v=3', hand: 'assets/images/cursor-hand.svg?v=3' };
+    const OFF = { arrow: [4, 0], hand: [8, 1] };
+    const SIZE = { arrow: [19, 24], hand: [20, 25] };
+    const ORIG = { arrow: '4px 0px', hand: '8px 1px' };
     let curState = 'arrow', overText = false, handReady = false;
     const handPre = new Image();
     handPre.onload = () => { handReady = true; };
@@ -379,6 +381,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (s === curState) return;
       curState = s;
       curImg.src = SRC[s];
+      cur.style.width = SIZE[s][0] + 'px';
+      cur.style.height = SIZE[s][1] + 'px';
+      curImg.style.transformOrigin = ORIG[s];
       ox = OFF[s][0]; oy = OFF[s][1];
     };
 
