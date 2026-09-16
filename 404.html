@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 — Flatline | Project ModAnatomy</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <meta name="theme-color" content="#3D0A08"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .flat-wrap {
+      min-height: 100vh;
+      background: var(--deep); color: var(--cream);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 40px 24px; gap: 0;
+    }
+    .flat-code {
+      font-family: 'Fraunces', serif; font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--cream);
+    }
+    .flat-code em { font-style: italic; font-weight: 300; color: var(--blush); }
+    #flatCanvas { width: min(560px, 90vw); height: auto; margin: 28px 0 8px; }
+    .flat-status { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; min-height: 24px; }
+    .flat-status.revived { color: var(--blush); opacity: 1; }
+    .flat-home { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <div class="flat-wrap">
+    <div class="flat-code">4<em>0</em>4</div>
+    <canvas id="flatCanvas" width="560" height="140"></canvas>
+    <div class="flat-status" id="flatStatus">flatline… move to revive</div>
+    <a href="index.html" class="btn-primary flat-home">Back to the body</a>
+  </div>
+  <script>
+    (function () {
+      var canvas = document.getElementById('flatCanvas');
+      var status = document.getElementById('flatStatus');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      var W = canvas.width, H = canvas.height, base = H / 2;
+      var alive = false, x = 0, pts = [];
+      var waveY = function (lx) {
+        if (lx >= 20 && lx <= 50) return base - 12 * Math.sin(((lx - 20) / 30) * Math.PI);
+        if (lx >= 80 && lx <= 120) {
+          var p = (lx - 80) / 40;
+          if (p < 0.2) return base + 15 * (p / 0.2);
+          if (p < 0.4) return base - 70 * ((p - 0.2) / 0.2);
+          if (p < 0.6) return base - 70 + 95 * ((p - 0.4) / 0.2);
+          return base + 25 - 25 * ((p - 0.6) / 0.4);
+        }
+        if (lx >= 150 && lx <= 190) return base - 20 * Math.sin(((lx - 150) / 40) * Math.PI);
+        return base;
+      };
+      var revive = function () {
+        if (alive) return;
+        alive = true;
+        status.textContent = 'revived — that was close.';
+        status.classList.add('revived');
+      };
+      document.addEventListener('pointermove', revive);
+      document.addEventListener('keydown', revive);
+      var tick = function () {
+        for (var i = 0; i < 3; i++) {
+          var lx = alive ? (x % 300) : -1;
+          pts.push({ x: x, y: alive ? waveY(lx) : base });
+          x++;
+        }
+        var start = x - W;
+        while (pts.length && pts[0].x < start - W) pts.shift();
+        ctx.clearRect(0, 0, W, H);
+        ctx.strokeStyle = 'rgba(242,196,192,0.15)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(0, base); ctx.lineTo(W, base); ctx.stroke();
+        ctx.strokeStyle = alive ? '#DC5147' : 'rgba(250,240,236,0.5)';
+        ctx.lineWidth = 2.5;
+        ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.beginPath();
+        pts.forEach(function (p, i) {
+          var sx = p.x - Math.max(0, start);
+          if (i === 0) ctx.moveTo(sx, p.y); else ctx.lineTo(sx, p.y);
+        });
+        ctx.stroke();
+        requestAnimationFrame(tick);
+      };
+      tick();
+    })();
+  </script>
+</body>
+</html>

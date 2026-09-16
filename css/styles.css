@@ -73,7 +73,7 @@ nav.scrolled {
 .nav-cta::after { display: none !important; }
 .nav-cta:hover {
   background: var(--brick) !important;
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.04);
   box-shadow: 0 6px 12px rgba(220, 81, 71, 0.2);
 }
 
@@ -89,10 +89,10 @@ nav.scrolled {
 }
 .btn-primary:hover { 
   background: var(--brick); 
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.04);
   box-shadow: 0 8px 16px rgba(108, 27, 21, 0.15);
 }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:active { transform: translateY(0) scale(1); }
 .btn-outline {
   background: transparent; color: var(--ink);
   border: 1.5px solid rgba(108,27,21,0.28);
@@ -107,7 +107,7 @@ nav.scrolled {
   border-color: var(--brick); 
   color: var(--cream);
   background: var(--brick);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.04);
 }
 
 /* Button ripple effect */
@@ -546,6 +546,7 @@ svg.mdi {
     background: var(--ink); color: var(--cream);
     text-align: center; border-radius: 4px; margin-top: 10px;
   }
+  .mobile-menu .mobile-cta:hover { transform: scale(1.03); }
 }
 
 /* ── CUSTOM CURSOR (desktop pointers only) ── */
@@ -594,4 +595,181 @@ svg.mdi {
 }
 @media (prefers-reduced-motion: reduce) {
   .heart-confetti { display: none; }
+}
+
+/* ── KONAMI ELEMENT FLIP ── */
+.konami-flip { animation: konami-flip 0.9s cubic-bezier(0.34, 1.3, 0.64, 1); }
+@keyframes konami-flip {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .konami-flip { animation: none; }
+}
+
+/* ── CURSOR GLOW + SPOTLIGHT (dye-in-water) ── */
+@property --mx { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+@property --my { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+.cursor-glow { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow {
+    display: block; position: fixed; top: 0; left: 0; z-index: 2999;
+    width: 680px; height: 680px; margin: -340px 0 0 -340px;
+    pointer-events: none; opacity: 0;
+    transition: opacity 0.35s ease, width 0.25s ease, height 0.25s ease, margin 0.25s ease;
+    background: radial-gradient(circle, rgba(242,196,192,0.20) 0%, rgba(242,196,192,0.06) 40%, transparent 70%);
+    will-change: transform;
+  }
+  .cursor-glow.is-visible { opacity: 1; }
+  .organ-tile, .organ-row, .pillar, .principle, .info-card, .roadmap-col, .tface {
+    position: relative;
+    --mx: 50%; --my: 50%;
+    transition: --mx 0.18s linear, --my 0.18s linear;
+  }
+  .organ-tile::after, .organ-row::after, .pillar::after, .principle::after,
+  .info-card::after, .roadmap-col::after, .tface::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(circle 90px at var(--mx, 50%) var(--my, 50%), rgba(242,196,192,0.35), transparent 70%),
+      radial-gradient(circle 320px at var(--mx, 50%) var(--my, 50%), rgba(242,196,192,0.22), transparent 70%);
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.9);
+    /* slow dissolve out — dye lingers where the cursor left */
+    transition: opacity 0.7s ease-out, filter 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .organ-tile:hover::after, .organ-row:hover::after, .pillar:hover::after,
+  .principle:hover::after, .info-card:hover::after, .roadmap-col:hover::after,
+  .tface:hover::after {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+    /* fast soak in — dye gets sucked in on entry */
+    transition: opacity 0.25s ease-in, filter 0.45s ease-out, transform 0.45s ease-out;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow { display: none !important; }
+  .organ-tile::after, .organ-row::after, .pillar::after, .principle::after,
+  .info-card::after, .roadmap-col::after, .tface::after {
+    filter: none; transform: none;
+    transition: opacity 0.2s ease;
+  }
+}
+
+/* ── EKG SCROLL PROGRESS (model page) ── */
+.ekg-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 1000;
+  background: var(--brick);
+  transform: scaleX(0); transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+/* ── HEARTBEAT MODE (model page) ── */
+.hb-pulse {
+  position: fixed; inset: 0; z-index: 1500;
+  pointer-events: none; opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(220,81,71,0.28) 100%);
+}
+body.heartbeat-mode .hb-pulse {
+  opacity: 1;
+  animation: hb-thump 0.833s ease-in-out infinite;
+}
+@keyframes hb-thump {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  12% { transform: scale(1.02); opacity: 1; }
+  24% { transform: scale(1); opacity: 0.65; }
+  36% { transform: scale(1.015); opacity: 0.95; }
+  48% { transform: scale(1); opacity: 0.55; }
+}
+.hb-badge {
+  position: fixed; right: 16px; bottom: 16px; z-index: 1501;
+  background: var(--deep); color: var(--blush);
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 8px 14px; border-radius: 20px;
+  border: 1px solid rgba(242,196,192,0.25);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  pointer-events: none;
+}
+.hb-badge.show { opacity: 1; visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .hb-pulse, .hb-badge { display: none; }
+}
+
+/* ── CLICKABLE EKG WAVE LABELS ── */
+.ekg-wave-label {
+  cursor: pointer; border-radius: 8px;
+  transition: opacity 0.25s ease, background 0.25s ease;
+}
+.ekg-wave-label:hover { background: rgba(220,81,71,0.06); }
+.ekg-wave-label:focus-visible { outline: 2px solid var(--brick); outline-offset: 2px; }
+.ekg-wave-label.is-off { opacity: 0.45; }
+.ekg-wave-label.is-off .wave-label-text { text-decoration: line-through; }
+
+/* ── HOVER BRIGHTEN (interactive elements) ── */
+@media (hover: hover) {
+  a:hover, button:hover { filter: brightness(1.12); }
+}
+
+/* ── LOGO CHARGE (4 squares light one at a time) ── */
+.nav-logo { position: relative; touch-action: manipulation; -webkit-touch-callout: none; user-select: none; }
+.logo-charge {
+  position: absolute; left: 1%; top: 5%; width: 21%; height: 88%;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6%;
+  pointer-events: none; opacity: 0; transition: opacity 0.2s ease;
+}
+.nav-logo.charging .logo-charge { opacity: 1; }
+.lc-cell {
+  transform: scale(0.55); opacity: 0.2; filter: brightness(1);
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+.lc-tl { background: #6C1B14; color: #6C1B14; border-radius: 35% 0 0 0; }
+.lc-tr { background: #E7DED9; color: #E7DED9; border-radius: 0 35% 0 0; }
+.lc-bl { background: #E1B6B3; color: #E1B6B3; border-radius: 0 0 0 35%; }
+.lc-br { background: #DC5147; color: #DC5147; border-radius: 0 0 35% 0; }
+.lc-cell.lit {
+  transform: scale(1.1); opacity: 1;
+  filter: brightness(1.6) drop-shadow(0 0 4px currentColor);
+}
+
+/* ── HEARTS PUMPED COUNTER ── */
+.pump-count { white-space: nowrap; }
+
+/* ── PRINT (clean handouts for teachers) ── */
+@media print {
+  .cursor, .cursor-glow, .wipe, .ekg-progress, .hb-pulse, .hb-badge,
+  .heart-confetti, .mobile-menu, .nav-toggle, .rhythm-game, .pump-count {
+    display: none !important;
+  }
+  nav { position: static; }
+  .page-content { padding-top: 0; }
+  body { background: #fff; }
+  .scroll-fade-up, .scroll-scale-in, .scroll-fade-in-left, .scroll-fade-in-right, .fu {
+    opacity: 1 !important; transform: none !important; animation: none !important;
+  }
+  .konami-flip { animation: none; }
+  .content-block, .join-band, .vision-teaser, .why-section, .intro-band {
+    content-visibility: visible;
+  }
+}
+
+/* ── BLOOD VESSEL SCROLLBAR ── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--blush) rgba(250,240,236,0.6);
+}
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track {
+  background: rgba(250,240,236,0.6);
+  box-shadow: inset 0 0 0 1px rgba(108,27,21,0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--blush);
+  border-radius: 8px;
+  border: 2px solid rgba(250,240,236,0.6);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E8A9A4;
 }
