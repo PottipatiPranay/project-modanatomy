@@ -207,10 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.stroke();
     };
 
-    const animate = () => {
+    let previousFrameTime = null;
+    let pointBudget = 0;
+    const animate = (timestamp = performance.now()) => {
+      const elapsed = previousFrameTime === null ? 0 : Math.min(timestamp - previousFrameTime, 50);
+      previousFrameTime = timestamp;
+      pointBudget += elapsed * 0.11; // 110 pixels/second, independent of display refresh rate.
       const baseline = centerY;
       const cycleWidth = 300;
-      const batchSize = 3;
+      const batchSize = Math.floor(pointBudget);
+      pointBudget -= batchSize;
 
       // Generate points
       for (let i = 0; i < batchSize; i++) {
@@ -263,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!entry.isIntersecting && animationFrame) {
           cancelAnimationFrame(animationFrame);
           animationFrame = null;
+          previousFrameTime = null;
         } else if (entry.isIntersecting && !animationFrame) {
           animate();
         }
@@ -358,33 +365,49 @@ document.addEventListener('DOMContentLoaded', () => {
       wipe = document.createElement('div');
       wipe.className = 'wipe is-covering';
       wipe.setAttribute('aria-hidden', 'true');
-      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-loader.svg" alt="Project ModAnatomy" width="600" height="150"/></div>';
+      wipe.innerHTML = '<div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-red-cream.svg" alt="Project ModAnatomy" width="600" height="150"/></div>';
       document.body.appendChild(wipe);
     }
 
-    // First visit: hold the logo, then lift slowly. Later visits: quick lift.
-    let firstVisit = true;
-    try { firstVisit = !localStorage.getItem('moda-seen'); } catch (err) {}
+    const playIntro = document.documentElement.classList.contains('intro-pending');
+    try { sessionStorage.setItem('moda-intro-played', '1'); } catch (err) {}
+    let introTimer;
     const reveal = () => {
       requestAnimationFrame(() => {
         wipe.classList.remove('is-covering');
         document.body.classList.remove('wipe-covering');
-        setTimeout(() => wipe.classList.remove('wipe-slow'), 1500);
+        document.documentElement.classList.remove('intro-pending');
+        setTimeout(() => {
+          wipe.classList.remove('wipe-slow', 'intro-playing');
+          const intro = wipe.querySelector('.intro-art');
+          if (intro) intro.remove();
+        }, 1500);
       });
     };
     document.body.classList.add('wipe-covering');
-    if (firstVisit) {
-      try { localStorage.setItem('moda-seen', '1'); } catch (err) {}
+    if (playIntro) {
       wipe.classList.add('wipe-slow');
-      setTimeout(reveal, 1100);
+      const intro = document.createElement('div');
+      intro.className = 'intro-art';
+      intro.setAttribute('aria-hidden', 'true');
+      if (window.__modaIntroMarkup) {
+        intro.innerHTML = window.__modaIntroMarkup;
+        wipe.querySelector('.wipe-deep').appendChild(intro);
+        wipe.classList.add('intro-playing');
+        introTimer = setTimeout(reveal, 7100);
+      } else {
+        reveal();
+      }
     } else {
-      reveal();
+      setTimeout(reveal, 150);
     }
 
     // Re-reveal when returning via back/forward cache
     window.addEventListener('pageshow', (e) => {
       if (e.persisted) {
-        wipe.classList.remove('is-covering');
+        clearTimeout(introTimer);
+        document.documentElement.classList.remove('intro-pending');
+        wipe.classList.remove('is-covering', 'intro-playing');
         document.body.classList.remove('wipe-covering');
       }
     });
@@ -654,6 +677,10 @@ document.addEventListener('DOMContentLoaded', () => {
       chargeBox.appendChild(d);
       return d;
     });
+    const gear = document.createElement('span');
+    gear.className = 'lc-gear';
+    gear.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 2h8l1.2 5.1 4 1.7 4.5-2.8 5.7 5.7-2.8 4.5 1.7 4L47 21v8l-5.1 1.2-1.7 4 2.8 4.5-5.7 5.7-4.5-2.8-4 1.7L28 47h-8l-1.2-5.1-4-1.7-4.5 2.8-5.7-5.7 2.8-4.5-1.7-4L1 29v-8l5.1-1.2 1.7-4L5 11.3l5.7-5.7 4.5 2.8 4-1.7L20 2Zm4 15a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z" fill="currentColor" fill-rule="evenodd"/></svg>';
+    chargeBox.appendChild(gear);
     navLogo.appendChild(chargeBox);
     let chargeTimers = [];
     const cancelCharge = () => {

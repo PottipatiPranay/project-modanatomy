@@ -457,7 +457,7 @@ footer:hover .footer-logo img {
 }
 .wipe-brick { background: var(--brick); }
 .wipe-deep {
-  background: var(--deep);
+  background: #450c0b;
   display: flex; align-items: center; justify-content: center;
 }
 .wipe.is-covering .wipe-panel { transform: translate3d(0, 0, 0); }
@@ -473,7 +473,6 @@ footer:hover .footer-logo img {
 .wipe.is-covering .wipe-logo-img { opacity: 0.92; transition-delay: 0.3s; }
 /* slow first-load reveal so the curtain registers */
 .wipe-slow .wipe-panel { transition-duration: 1.2s; }
-.wipe-brick, .wipe-deep { border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; }
 /* content fades beneath the curtain for a softer handoff */
 .page-content { transition: opacity 0.45s ease; }
 body.wipe-covering .page-content { opacity: 0; }
@@ -713,26 +712,36 @@ body.heartbeat-mode .hb-pulse {
   a:hover, button:hover { filter: brightness(1.12); }
 }
 
-/* ── LOGO CHARGE (4 squares light one at a time) ── */
+/* ── LOGO CHARGE (brand tiles and spinning center gear) ── */
 .nav-logo { position: relative; touch-action: manipulation; -webkit-touch-callout: none; user-select: none; }
 .logo-charge {
-  position: absolute; left: 1%; top: 5%; width: 21%; height: 88%;
-  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6%;
+  position: absolute; left: 2%; top: 6%; width: 21%; height: 88%;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 5%;
   pointer-events: none; opacity: 0; transition: opacity 0.2s ease;
 }
 .nav-logo.charging .logo-charge { opacity: 1; }
 .lc-cell {
-  transform: scale(0.55); opacity: 0.2; filter: brightness(1);
-  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+  transform: scale(0.65); opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.2, 1.6, 0.4, 1), opacity 0.2s ease;
 }
-.lc-tl { background: #6C1B14; color: #6C1B14; border-radius: 35% 0 0 0; }
-.lc-tr { background: #E7DED9; color: #E7DED9; border-radius: 0 35% 0 0; }
-.lc-bl { background: #E1B6B3; color: #E1B6B3; border-radius: 0 0 0 35%; }
-.lc-br { background: #DC5147; color: #DC5147; border-radius: 0 0 35% 0; }
+.lc-tl { background: #6C1B15; color: #6C1B15; border-radius: 25% 0 0 0; }
+.lc-tr { background: #F9EFEB; color: #F9EFEB; border-radius: 0 25% 0 0; }
+.lc-bl { background: #F2C4C0; color: #F2C4C0; border-radius: 0 0 0 25%; }
+.lc-br { background: #DC5147; color: #DC5147; border-radius: 0 0 25% 0; }
 .lc-cell.lit {
-  transform: scale(1.1); opacity: 1;
-  filter: brightness(1.6) drop-shadow(0 0 4px currentColor);
+  transform: scale(1.02); opacity: 0.95;
+  box-shadow: 0 0 9px 2px currentColor;
 }
+.lc-gear {
+  position: absolute; left: 48%; top: 50%; width: 32%; aspect-ratio: 1;
+  transform: translate(-50%, -50%); color: #FAF0EC;
+  filter: drop-shadow(0 1px 3px rgba(61, 10, 8, 0.7));
+}
+.lc-gear svg { display: block; width: 100%; height: 100%; }
+.nav-logo.charging .lc-gear svg {
+  animation: logo-gear-spin 2s ease-in-out both;
+}
+@keyframes logo-gear-spin { to { transform: rotate(360deg); } }
 
 /* ── HEARTS PUMPED COUNTER ── */
 .pump-count { white-space: nowrap; }
@@ -773,3 +782,13 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #E8A9A4;
 }
+
+/* Opening logo sequence: once per tab, then short navigation wipes. */
+.wipe { overflow: hidden; }
+.intro-art { position:absolute; width:min(680px,88vw); height:auto; overflow:visible; }
+.intro-playing .wipe-logo-img { visibility:hidden; }
+.intro-playing .wipe-deep { animation:intro-backdrop 1s 5.6s ease both; }
+@keyframes intro-backdrop { from {background:#FAF0EC} to {background:#450C0B} }
+@media (prefers-reduced-motion:reduce) { .intro-art { display:none; } }
+
+.intro-art > svg { display:block; width:100%; height:auto; overflow:visible; }

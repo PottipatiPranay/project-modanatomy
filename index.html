@@ -7,12 +7,12 @@
   <title>Project ModAnatomy: Hands-On Human Biology</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="preload" as="image" href="assets/images/logo-full.webp" fetchpriority="high"/>
+  <link rel="preload" as="image" href="assets/images/logo-full-color.svg" fetchpriority="high"/>
   <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/fraunces/v38/6NUs8FyLNQOQZAnv9ZwNjucMHVn85Ni7emAe9lKqZTnbB-gzTK0K1ChJdt9vIVYX9G37lvd9mv0iQublWII.woff2" crossorigin/>
   <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/fraunces/v38/6NUu8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib14c7qv8oRcTn.woff2" crossorigin/>
   <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&display=swap&display=swap" rel="stylesheet"/>
-  <style>.wipe{position:fixed;inset:0;z-index:2000;pointer-events:none}.wipe.is-covering{pointer-events:all}.wipe-panel{position:absolute;inset:0;transform:translate3d(0,102%,0)}.wipe-brick{background:#DC5147}.wipe-deep{background:#3D0A08;display:flex;align-items:center;justify-content:center}.wipe.is-covering .wipe-panel{transform:translate3d(0,0,0)}.wipe-logo-img{width:min(260px,60vw);height:auto;opacity:0;transition:opacity .3s ease}.wipe.is-covering .wipe-logo-img{opacity:.92}</style>
+  <style>.wipe{position:fixed;inset:0;z-index:2000;pointer-events:none}.wipe.is-covering{pointer-events:all}.wipe-panel{position:absolute;inset:0;transform:translate3d(0,102%,0)}.wipe-brick{background:#DC5147}.wipe-deep{background:#450c0b;display:flex;align-items:center;justify-content:center}.wipe.is-covering .wipe-panel{transform:translate3d(0,0,0)}.wipe-logo-img{width:min(260px,60vw);height:auto;opacity:0;transition:opacity .3s ease}.wipe.is-covering .wipe-logo-img{opacity:.92}</style>
   <noscript><style>.wipe{display:none!important}</style></noscript>
   <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
   <meta name="theme-color" content="#3D0A08"/>
@@ -156,13 +156,16 @@
       .vision-teaser { padding: 56px 24px; gap: 40px; }
     }
   </style>
+  <script>try{if(!sessionStorage.getItem('moda-intro-played')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending');}catch(e){document.documentElement.classList.add('intro-pending');}</script>
+  <style>.intro-pending .wipe-deep{background:#FAF0EC}.intro-pending .wipe-logo-img{visibility:hidden}</style>
+  <noscript><style>.wipe{display:none!important}</style></noscript>
 </head>
 <body>
-<div class="wipe is-covering" aria-hidden="true"><div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-loader.svg" alt="Project ModAnatomy" width="600" height="150"/></div></div>
+<div class="wipe is-covering" aria-hidden="true"><div class="wipe-panel wipe-brick"></div><div class="wipe-panel wipe-deep"><img class="wipe-logo-img" src="assets/images/logo-red-cream.svg" alt="Project ModAnatomy" width="600" height="150"/></div></div>
 
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="assets/images/logo-full.webp" alt="Project ModAnatomy" width="600" height="150"/>
+    <img src="assets/images/logo-full-color.svg" alt="Project ModAnatomy" width="600" height="150"/>
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
@@ -289,7 +292,7 @@
 
 <footer>
   <div>
-    <div class="footer-logo"><img src="assets/images/logo-red-cream.png" alt="Project ModAnatomy" width="600" height="150"/></div>
+    <div class="footer-logo"><img src="assets/images/logo-red-cream.svg" alt="Project ModAnatomy" width="600" height="150"/></div>
     <div class="footer-sub">Hands-on anatomy education for every classroom.</div>
   </div>
   <ul class="footer-links">
@@ -302,6 +305,7 @@
   <div class="footer-copy">© 2026 Project ModAnatomy. All rights reserved.</div>
 </footer>
 
+<script src="js/logo-intro.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
