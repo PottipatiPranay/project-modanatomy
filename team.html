@@ -39,7 +39,7 @@
     .tcard:hover .tcard-inner, .tcard.flipped .tcard-inner { transform: rotateY(180deg); }
     .tface {
       grid-area: 1 / 1;
-      min-height: 98cqi;
+      min-height: 165cqi;
       backface-visibility: hidden; -webkit-backface-visibility: hidden;
       border-radius: 3.56cqi; overflow: hidden;
       border: 1px solid var(--border);
@@ -64,7 +64,7 @@
     /* FRONT */
     .tfront { background: var(--warm); }
     .tphoto {
-      flex: 1 0 auto; min-height: 55.5cqi; position: relative;
+      flex: 1 0 auto; min-height: 122cqi; position: relative;
       background: linear-gradient(160deg, var(--blush), var(--warm));
       display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
@@ -74,16 +74,16 @@
       display: flex; align-items: center; justify-content: center;
     }
     .tphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-    .tfront-body { padding: 4cqi 4cqi 3.1cqi; display: flex; flex-direction: column; gap: 1.33cqi; flex: none; }
-    .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 4.6cqi; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
+    .tfront-body { padding: 6cqi 6cqi 5cqi; display: flex; flex-direction: column; gap: 1.33cqi; flex: none; }
+    .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 7cqi; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
     .trole {
-      align-self: flex-start; font-size: 2.3cqi; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      align-self: flex-start; font-size: 3.6cqi; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--brick-deep); background: rgba(220,81,71,0.1); border: 1px solid rgba(220,81,71,0.25);
-      padding: 0.9cqi 2.2cqi; border-radius: 20px;
+      padding: 1.2cqi 3cqi; border-radius: 20px;
     }
     .tflip-hint {
-      margin-top: 2.7cqi; padding-top: 0;
-      font-size: 2.42cqi; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
+      margin-top: 4.2cqi; padding-top: 0;
+      font-size: 3.2cqi; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
       display: flex; align-items: center; gap: 6px;
     }
     /* BACK: clean bio */
@@ -112,19 +112,19 @@
     }
     /* Scale the header and card contents against the available CSS viewport/container.
        Browser zoom changes CSS dimensions inversely, keeping the visible layout legible. */
-    .page-header { padding: clamp(56px, 4.6vw, 176px) clamp(24px, 3.8vw, 144px) clamp(48px, 3.8vw, 144px); }
-    .page-header h1 { font-size: clamp(2.8rem, 4.2vw, 10rem); }
-    .page-header p { font-size: clamp(1rem, 1.05vw, 2rem); }
-    .page-header::after { width: 19vw; height: 19vw; right: -4.2vw; top: -4.2vw; }
-    .team-cards-block { padding: 4.2vw; }
+    .page-header { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 8px 5vw; }
+    .page-header h1 { font-size: clamp(1.7rem, 2.2vw, 3rem); margin: 0; }
+    .page-header p { font-size: clamp(0.9rem, 1vw, 1.2rem); max-width: none; opacity: 0.72; }
+    .page-header::after { width: 12vw; height: 12vw; right: -2.5vw; top: -5vw; }
+    .team-cards-block { padding: 16px 5vw 5vw; }
     @media (max-width: 600px) {
-      .team-cards-block { padding: 24px; }
-      .page-header { padding: 64px 24px 52px; }
-      .page-header h1 { font-size: clamp(2.6rem, 8.4vw, 5rem); }
-      .page-header p { font-size: 1rem; }
-      .page-header::after { width: 220px; height: 220px; right: -60px; top: -60px; }
-      .tface { min-height: 440px; }
-      .tphoto { min-height: 220px; }
+      .team-cards-block { padding: 12px 24px 36px; }
+      .page-header { display: block; padding: 12px 24px; }
+      .page-header h1 { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+      .page-header p { display: none; }
+      .page-header::after { width: 160px; height: 160px; right: -45px; top: -70px; }
+      .tface { min-height: 150cqi; }
+      .tphoto { min-height: 90cqi; }
       .tback-head h2 { font-size: 1.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
