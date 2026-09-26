@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (firstVisit) {
       try { localStorage.setItem('moda-seen', '1'); } catch (err) {}
       wipe.classList.add('wipe-slow');
-      setTimeout(reveal, 100);
+      setTimeout(reveal, 1100);
     } else {
       reveal();
     }

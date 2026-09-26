@@ -256,7 +256,7 @@ nav.scrolled {
 
 /* ── FOOTER ── */
 footer {
-  background: var(--deep); color: var(--cream);
+  background: #450c0b; color: var(--cream);
   padding: 44px 72px;
   display: flex; align-items: center; justify-content: space-between;
   transition: background 0.3s ease;
