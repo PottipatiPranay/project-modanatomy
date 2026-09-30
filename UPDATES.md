@@ -15,6 +15,7 @@
 - Reworked the Team page to match the image-led reference: compact title area, larger team portraits, and more prominent card names and roles.
 - Added a branded Team page application callout linking to the public Google Form in a new tab.
 - Removed the redundant “Here's the team!” text beside the Team page title.
+- Enlarged team card names, role labels, bios, and quotes. Added more space between the application callout and footer.
 
 ## Checks and installation
 JavaScript syntax, SVG XML, local asset references, and git diff checks passed. Browser visual verification could not run because the browser download failed.

@@ -75,31 +75,31 @@
     }
     .tphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
     .tfront-body { padding: 6cqi 6cqi 5cqi; display: flex; flex-direction: column; gap: 1.33cqi; flex: none; }
-    .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 7cqi; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
+    .tname { font-family: 'Fraunces', serif; font-weight: 900; font-size: 8.5cqi; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
     .trole {
-      align-self: flex-start; font-size: 3.6cqi; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      align-self: flex-start; font-size: 4.3cqi; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--brick-deep); background: rgba(220,81,71,0.1); border: 1px solid rgba(220,81,71,0.25);
       padding: 1.2cqi 3cqi; border-radius: 20px;
     }
     .tflip-hint {
       margin-top: 4.2cqi; padding-top: 0;
-      font-size: 3.2cqi; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
+      font-size: 3.8cqi; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
       display: flex; align-items: center; gap: 6px;
     }
     /* BACK: clean bio */
     .tback { background: var(--deep); color: var(--cream); transform: rotateY(180deg); }
-    .tback-head { padding: 2.7cqi 4.45cqi 2.2cqi; border-bottom: 1px solid rgba(242,196,192,0.15); }
-    .tback-head .tset { font-size: 2.2cqi; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blush); }
-    .tback-head h2 { font-family: 'Fraunces', serif; font-size: 4.8cqi; font-weight: 900; margin-top: 1.33cqi; color: var(--cream); letter-spacing: -0.02em; line-height: 1.15; }
-    .tback-body { padding: 2.7cqi 4.45cqi 3.1cqi; flex: 1; display: flex; flex-direction: column; gap: 1.78cqi; }
-    .tbio { font-size: 2.78cqi; line-height: 1.55; opacity: 0.8; }
+    .tback-head { padding: 3.2cqi 4.45cqi 2.8cqi; border-bottom: 1px solid rgba(242,196,192,0.15); }
+    .tback-head .tset { font-size: 3.5cqi; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blush); }
+    .tback-head h2 { font-family: 'Fraunces', serif; font-size: 7cqi; font-weight: 900; margin-top: 1.6cqi; color: var(--cream); letter-spacing: -0.02em; line-height: 1.15; }
+    .tback-body { padding: 3.2cqi 4.45cqi 3.6cqi; flex: 1; display: flex; flex-direction: column; gap: 2.2cqi; }
+    .tbio { font-size: 4.4cqi; line-height: 1.55; opacity: 0.8; }
     .tnote {
-      font-size: 2.67cqi; line-height: 1.55; font-style: italic;
+      font-size: 4.2cqi; line-height: 1.55; font-style: italic;
       color: var(--blush); opacity: 0.9;
       border-left: 0.45cqi solid var(--brick); padding-left: 2.67cqi;
     }
     .tnote .tnote-label {
-      display: block; font-style: normal; font-size: 2.2cqi; font-weight: 700;
+      display: block; font-style: normal; font-size: 3.4cqi; font-weight: 700;
       letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; margin-bottom: 0.9cqi;
     }
 
@@ -108,7 +108,6 @@
       .tgrid { grid-template-columns: 1fr; gap: 16px; }
       .tface { min-height: 440px; }
       .tphoto { min-height: 220px; }
-      .tback-head h2 { font-size: 1.2rem; }
     }
     /* Scale the header and card contents against the available CSS viewport/container.
        Browser zoom changes CSS dimensions inversely, keeping the visible layout legible. */
@@ -117,7 +116,7 @@
     .page-header::after { width: 12vw; height: 12vw; right: -2.5vw; top: -5vw; }
     .team-cards-block { padding: 16px 5vw 5vw; }
     .team-opportunity {
-      width: min(100%, 68vw); margin: clamp(32px, 4vw, 64px) auto 0;
+      width: min(100%, 68vw); margin: clamp(32px, 4vw, 64px) auto clamp(48px, 6vw, 88px);
       padding: clamp(24px, 3vw, 44px); text-align: center;
       background: var(--warm); border: 1px solid var(--border); border-radius: 16px;
       box-shadow: 0 8px 24px rgba(108,27,21,0.07);
@@ -131,8 +130,7 @@
       .page-header::after { width: 160px; height: 160px; right: -45px; top: -70px; }
       .tface { min-height: 150cqi; }
       .tphoto { min-height: 90cqi; }
-      .team-opportunity { width: 100%; margin-top: 32px; padding: 24px; }
-      .tback-head h2 { font-size: 1.2rem; }
+      .team-opportunity { width: 100%; margin: 32px auto 48px; padding: 24px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .tcard-inner { transition: none; }
