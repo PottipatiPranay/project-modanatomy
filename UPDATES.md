@@ -14,6 +14,7 @@
 - Made the Team page adapt to browser zoom. The header, card spacing, portraits, type, and card padding scale with the available viewport and card width, while the layout reflows to fewer columns as the CSS viewport narrows.
 - Reworked the Team page to match the image-led reference: compact title area, larger team portraits, and more prominent card names and roles.
 - Added a branded Team page application callout linking to the public Google Form in a new tab.
+- Removed the redundant “Here's the team!” text beside the Team page title.
 
 ## Checks and installation
 JavaScript syntax, SVG XML, local asset references, and git diff checks passed. Browser visual verification could not run because the browser download failed.
