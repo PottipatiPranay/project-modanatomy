@@ -117,6 +117,14 @@
     .page-header p { font-size: clamp(0.9rem, 1vw, 1.2rem); max-width: none; opacity: 0.72; }
     .page-header::after { width: 12vw; height: 12vw; right: -2.5vw; top: -5vw; }
     .team-cards-block { padding: 16px 5vw 5vw; }
+    .team-opportunity {
+      width: min(100%, 68vw); margin: clamp(32px, 4vw, 64px) auto 0;
+      padding: clamp(24px, 3vw, 44px); text-align: center;
+      background: var(--warm); border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(108,27,21,0.07);
+    }
+    .team-opportunity h2 { font-family: 'Fraunces', serif; font-size: clamp(1.6rem, 2.4vw, 2.5rem); line-height: 1.1; }
+    .team-opportunity p { margin: 12px auto 22px; color: var(--muted); line-height: 1.65; }
     @media (max-width: 600px) {
       .team-cards-block { padding: 12px 24px 36px; }
       .page-header { display: block; padding: 12px 24px; }
@@ -125,6 +133,7 @@
       .page-header::after { width: 160px; height: 160px; right: -45px; top: -70px; }
       .tface { min-height: 150cqi; }
       .tphoto { min-height: 90cqi; }
+      .team-opportunity { width: 100%; margin-top: 32px; padding: 24px; }
       .tback-head h2 { font-size: 1.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -162,6 +171,7 @@
 
   <div class="page-header">
     <h1>Meet the <em>team.</em></h1>
+    <p>Here's the team!</p>
   </div>
 
   <div class="content-block team-cards-block">
@@ -265,6 +275,12 @@
 
     </div>
   </div>
+
+  <section class="team-opportunity" aria-labelledby="team-opportunity-title">
+    <h2 id="team-opportunity-title">Interested in joining ModAnatomy?</h2>
+    <p>Tell us a little about yourself and how you’d like to contribute.</p>
+    <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfVVQ1xuEAz3NsIuncYFSxg_RHJDoUuvRLv66GQfciNGvRagw/viewform" target="_blank" rel="noopener noreferrer">Apply to join the team</a>
+  </section>
 </div>
 
 <footer>
